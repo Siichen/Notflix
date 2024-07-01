@@ -1,0 +1,63 @@
+.movie-poster {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 220px;
+  height: 280px;
+  border-radius: 5px;
+}
+
+.movie-content {
+  .movie-name {
+    margin-top: 310px;
+    font-size: 1.22rem;
+    font-weight: 400;
+    position: relative;
+  }
+
+  span {
+    background-color: #8d143c;
+    line-height: 100%;
+    padding: 2px 30px;
+    border-radius: 20px;
+    text-align: center;
+    position: relative;
+    top: -10px;
+    justify-content: space-between;
+    margin-right: 5px;
+  }
+  span:nth-child(2) {
+    font-size: 1.2em;
+  }
+
+  span:nth-child(4) {
+    color: greenyellow;
+    font-size: 1.2em;
+  }
+
+  .movie-sum {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    position: relative;
+    top: -10px;
+  }
+
+  .movie-det {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    opacity: 85%;
+    background-color: #01015abb;
+    // #01016fbb
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: relative;
+    top: -12px;
+
+    &:hover {
+      background-color: #6b1101;
+    }
+  }
+}

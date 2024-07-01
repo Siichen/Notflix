@@ -1,0 +1,91 @@
+.container {
+  background-image: url("/assets/login/background.jpeg");
+  background-size: cover;
+  display: flex;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.sign_in_header {
+  text-align: center;
+  color: white;
+  font-size: 3rem;
+  font-weight: light;
+}
+
+.sign_in_input {
+  width: 23rem;
+}
+
+.login_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  text-align: center;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  width: 23rem;
+  border: none;
+  background-color: #e50914;
+  color: white;
+  font-weight: 50px;
+  font-size: 1rem;
+  border-radius: 3px;
+  position: relative;
+  height: 40px;
+}
+
+.title:hover {
+  background-color: red;
+}
+
+.detailed_content {
+  flex-direction: column;
+  width: 23rem;
+}
+
+.check_box {
+  flex-direction: row;
+}
+.login_fb {
+  height: 1.5rem;
+  width: 95%;
+  line-height: 1.5rem;
+  margin: 20px 0;
+  color: white;
+
+  img {
+    height: 100%;
+    width: auto;
+    margin-right: 10px;
+  }
+}
+
+.sign_up_nav {
+  margin-bottom: 1rem;
+  width: 95%;
+  color: rgb(234, 230, 230);
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}
+
+.right_description {
+  font-size: 0.8rem;
+  width: 95%;
+  color: rgb(210, 207, 207);
+  a {
+    text-decoration: none;
+    color: rgb(1, 113, 235);
+  }
+  margin-bottom: 1.9rem;
+}

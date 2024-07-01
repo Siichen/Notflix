@@ -1,0 +1,62 @@
+.main_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.step,
+.p_1,
+.p_2,
+.p_3 {
+  width: 100%;
+  margin-top: 20px;
+  font-size: 0.8rem;
+  line-height: 1rem;
+}
+.p_1 {
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
+.p_2,
+.p_3 {
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+.register_form {
+  margin-top: 20px;
+  width: 100%;
+
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 1rem;
+    input {
+      width: 100%;
+    }
+    mat-spinner {
+      margin-right: 1rem;
+    }
+    .check_email_ok {
+      color: rgb(0, 186, 0);
+    }
+    .check_email_not {
+      color: red;
+    }
+  }
+
+  .next_btn {
+    margin-top: 20px;
+    background-color: red;
+    color: white;
+    font-size: 1.5rem;
+    width: 100%;
+    text-align: center;
+    line-height: 2.5rem;
+    height: 2.5rem;
+    border: none;
+  }
+  .next_btn:hover {
+    background-color: rgb(219, 46, 46);
+  }
+}

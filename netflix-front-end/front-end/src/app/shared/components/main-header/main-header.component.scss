@@ -1,0 +1,33 @@
+nav {
+  background: transparent;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+  height: 2.5rem;
+  width: 6rem;
+  border: none;
+  background-color: #e50914;
+  color: white;
+  font-weight: 400;
+  font-size: 1rem;
+  border-radius: 3px;
+  position: relative;
+  margin-left: 75%;
+  height: 40px;
+}
+
+.btn:hover {
+  background-color: red;
+}
+
+.header_img {
+  height: 60%;
+  margin-left: 10%;
+}

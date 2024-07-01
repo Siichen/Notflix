@@ -1,0 +1,50 @@
+<main class="main_container">
+  <div class="container">
+    <section class="step">STEP 3 OF 3</section>
+    <section class="p_1">Choose the plan that's right for you</section>
+    <section class="p_2">
+      <mat-icon>done</mat-icon>
+      Watch all you want. Ad-free.
+    </section>
+    <section class="p_3">
+      <mat-icon>done</mat-icon>
+      Recommendations just for you.
+    </section>
+    <section class="p_4">
+      <mat-icon>done</mat-icon>
+      Change or cancel your plan anytime.
+    </section>
+    <section class="plan_table">
+      <table class="mat-elevation-z8 demo-table horizontal-table">
+        <!-- Header Row -->
+        <tr>
+          <th></th>
+          <th *ngFor="let plan of plans">{{ plan.Plan }}</th>
+        </tr>
+        <!-- Monthly Price Row -->
+        <tr>
+          <td>Monthly Price</td>
+          <td *ngFor="let plan of plans">{{ plan.MonthlyPrice }}</td>
+        </tr>
+        <hr />
+        <!-- Video Quality Row -->
+        <tr>
+          <td>Video Quality</td>
+          <td *ngFor="let plan of plans">{{ plan.VideoQuality }}</td>
+        </tr>
+        <!-- Resolution Row -->
+        <tr>
+          <td>Resolution</td>
+          <td *ngFor="let plan of plans">{{ plan.Resolution }}</td>
+        </tr>
+        <hr />
+        <!-- Gougou Row -->
+        <tr>
+          <td>Watch on your TV, computer, mobile phone and table:</td>
+          <td *ngFor="let i of [1, 2, 3]"><mat-icon>done</mat-icon></td>
+        </tr>
+      </table>
+      <button mat-raised-button routerLink="/movies">Next</button>
+    </section>
+  </div>
+</main>

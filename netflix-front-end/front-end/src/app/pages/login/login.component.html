@@ -1,0 +1,43 @@
+<main class="container">
+  <div class="login_container">
+    <div class="clear">
+      <h2 class="sign_in_header">Sign In</h2>
+      <p>
+        <mat-form-field class="sign_in_input" appearance="fill">
+          <mat-label>Email or phone number*</mat-label>
+          <input matInput placeholder="" />
+          <mat-icon matSuffix></mat-icon>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="sign_in_input" appearance="fill">
+          <mat-label>Enter your Password*</mat-label>
+          <input matInput placeholder="" />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+      </p>
+      <div class="title" routerLink="/movies">Sign In</div>
+
+      <div class="detailed_content">
+        <div class="check_box"><input type="checkbox" />Remeber me</div>
+        <!-- ************************************8**** -->
+        <div class="login_fb">
+          <img src="/assets/login/FB-f-Logo__blue_57.png" alt="facebook_icon" />
+          <label for="">Login with Facebook</label>
+        </div>
+        <!-- ************************************8**** -->
+        <div class="sign_up_nav">
+          New to Netflix?
+          <a [routerLink]="['/register_1']">Sign up now</a>.
+        </div>
+        <!-- ************************************8**** -->
+        <p class="right_description">
+          This page is protected by Goodle reCAPTCHA to ensure you're not a bot.
+          <a href="">Learn more.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>

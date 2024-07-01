@@ -1,0 +1,21 @@
+<div class="movie-container">
+  <main>
+    <div class="movie-card">
+      <img
+        [src]="movie.posterImage"
+        alt="{{ movie.movieName }}"
+        class="movie-poster"
+      />
+      <div class="movie-content">
+        <h3 class="movie-name">{{ movie.movieName }}</h3>
+        <span class="movie-year">{{ movie.movieYear | date : "yyyy" }}</span>
+        <span class="movie-lan">{{ movie.movieLanguage | uppercase }}</span>
+        <span class="movie-vote">{{ movie.movieVote | number : "1.1-1" }}</span>
+        <p class="movie-sum">
+          {{ shortView(movie.movieOverview) }}
+        </p>
+        <button class="movie-det">More Details</button>
+      </div>
+    </div>
+  </main>
+</div>
