@@ -1,10 +1,14 @@
+app-main-header {
+  top: 0;
+}
+
 .main_container {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: fit-content;
 
   .container {
     padding-bottom: 20px;
@@ -50,17 +54,12 @@ button {
   background-color: red;
   color: white;
   font-size: 1.5rem;
-  width: 50%;
+  width: 100%;
   text-align: center;
   line-height: 2.5rem;
   height: 2.5rem;
   border: none;
 }
-
-button:hover {
-  background-color: rgb(241, 98, 98);
-}
-
-hr {
-  border-bottom: 1px solid black;
+button {
+  background-color: rgb(219, 46, 46);
 }

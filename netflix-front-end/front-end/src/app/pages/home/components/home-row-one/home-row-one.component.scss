@@ -22,9 +22,11 @@
   position: relative;
   display: flex;
   flex-direction: row;
+  height: 2.8rem;
   margin-top: 20px;
 }
 .start_input {
+  height: 100%;
   margin: auto;
   border: none;
   outline: none;
@@ -33,12 +35,21 @@
   border-radius: 5px;
 }
 .start_btn {
-  right: 0;
-  border: none;
-  width: 8.5rem;
-  height: 100%;
-  outline: none;
   background-color: #e50914;
+  outline: none;
+  text-align: center;
+  height: 100%;
+  // line-height: 2.5rem;
+  width: 9rem;
+  border: none;
   color: white;
+  // font-weight: 50px;
   font-size: 1rem;
+  border-radius: 3px;
+  position: relative;
+  // height: 40px;
+  // margin-bottom: 10px;
+  &:hover {
+    background-color: #c12929;
+  }
 }

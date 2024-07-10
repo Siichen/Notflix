@@ -8,6 +8,7 @@ import { MovielistComponent } from './pages/movies/components/movielist/movielis
 import { MoviesComponent } from './pages/movies/movies.component';
 import { PageOneComponent } from './pages/register/components/page-one/page-one.component';
 import { PageTwoComponent } from './pages/register/components/page-two/page-two.component';
+import { MoviedetailsComponent } from './pages/movies/components/moviedetails/moviedetails.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'movies', component: MoviesComponent },
   { path: 'register_1', component: PageOneComponent },
   { path: 'register_2', component: PageTwoComponent },
+  { path: 'movie/:id', component: MoviedetailsComponent },
 ];
 
 @NgModule({

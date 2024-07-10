@@ -1,42 +1,119 @@
 <main class="container">
   <div class="login_container">
     <div class="clear">
-      <h2 class="sign_in_header">Sign In</h2>
-      <p>
-        <mat-form-field class="sign_in_input" appearance="fill">
-          <mat-label>Email or phone number*</mat-label>
-          <input matInput placeholder="" />
-          <mat-icon matSuffix></mat-icon>
-          <mat-hint></mat-hint>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field class="sign_in_input" appearance="fill">
-          <mat-label>Enter your Password*</mat-label>
-          <input matInput placeholder="" />
-          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-          <mat-hint></mat-hint>
-        </mat-form-field>
-      </p>
-      <div class="title" routerLink="/movies">Sign In</div>
+      <div class="form">
+        <h2 class="sign_in_header">Sign In</h2>
+        <!-- ------------------------------------------------------- -->
+        <form [formGroup]="signinForm" (ngSubmit)="onSubmit()" novalidate>
+          <p>
+            <mat-form-field class="sign_in_input" appearance="fill">
+              <mat-label for="emailOrphone">Email or phone number</mat-label>
+              <input
+                id="emailOrphone"
+                formControlName="emailOrphone"
+                matInput
+              />
+              <mat-hint
+                *ngIf="
+                  !signinForm.controls['emailOrphone'].valid &&
+                  (signinForm.controls['emailOrphone'].dirty ||
+                    signinForm.controls['emailOrphone'].touched)
+                "
+              >
+                <span
+                  [hidden]="
+                  !signinForm.controls['emailOrphone'].errors?.['required']
+                "
+                  >Eamil or Phone Number is <strong>required</strong></span
+                >
+                <span
+                  [hidden]="!signinForm.controls['emailOrphone'].errors?.['minlength']"
+                  >Min length is 10</span
+                >
+              </mat-hint>
+            </mat-form-field>
+          </p>
+          <!-- ------------------------------------------------------- -->
+          <p>
+            <mat-form-field class="sign_in_input" appearance="fill">
+              <mat-label for="password">Enter your Password</mat-label>
+              <input
+                [disabled]="!signinForm.valid"
+                id="password"
+                formControlName="password"
+                matInput
+                [type]="passwordVisible ? 'text' : 'password'"
+              />
+              <button
+                type="button"
+                mat-icon-button
+                matSuffix
+                (click)="togglePassword()"
+                [attr.aria-label]="
+                  passwordVisible ? 'Hide password' : 'Show password'
+                "
+                [attr.aria-pressed]="passwordVisible"
+              >
+                <mat-icon>{{
+                  passwordVisible ? "visibility" : "visibility_off"
+                }}</mat-icon>
+              </button>
+              <mat-hint
+                *ngIf="
+                  !signinForm.controls['password'].valid &&
+                  (signinForm.controls['password'].dirty ||
+                    signinForm.controls['password'].touched)
+                "
+              >
+                <span
+                  [hidden]="
+                !signinForm.controls['password'].errors?.['required']
+              "
+                  >Password is <strong>required</strong></span
+                >
+                <span
+                  [hidden]="!signinForm.controls['password'].errors?.['minlength']"
+                  >Min length is 8</span
+                >
+              </mat-hint>
+            </mat-form-field>
+          </p>
+          <!-- ------------------------------------------------------- -->
+          <button
+            class="title"
+            routerLink="/movies"
+            [disabled]="!signinForm.valid"
+          >
+            Sign In
+          </button>
+        </form>
+        <!-- ------------------------------------------------------- -->
+        <div class="detailed_content">
+          <div class="check_box">
+            <mat-checkbox>Remember me</mat-checkbox>
+            <a href="https://www.google.com/">Need Help?</a>
+          </div>
 
-      <div class="detailed_content">
-        <div class="check_box"><input type="checkbox" />Remeber me</div>
-        <!-- ************************************8**** -->
-        <div class="login_fb">
-          <img src="/assets/login/FB-f-Logo__blue_57.png" alt="facebook_icon" />
-          <label for="">Login with Facebook</label>
+          <!-- **************************************** -->
+          <div class="login_fb">
+            <img
+              src="/assets/login/FB-f-Logo__blue_57.png"
+              alt="facebook_icon"
+            />
+            <mat-label>Login with Facebook</mat-label>
+          </div>
+          <!-- **************************************** -->
+          <div class="sign_up_nav">
+            New to Netflix?
+            <a [routerLink]="['/register_1']">Sign up now</a>.
+          </div>
+          <!-- **************************************** -->
+          <p class="right_description">
+            This page is protected by Google reCAPTCHA to ensure you're not a
+            bot.
+            <a href="">Learn more.</a>
+          </p>
         </div>
-        <!-- ************************************8**** -->
-        <div class="sign_up_nav">
-          New to Netflix?
-          <a [routerLink]="['/register_1']">Sign up now</a>.
-        </div>
-        <!-- ************************************8**** -->
-        <p class="right_description">
-          This page is protected by Goodle reCAPTCHA to ensure you're not a bot.
-          <a href="">Learn more.</a>
-        </p>
       </div>
     </div>
   </div>

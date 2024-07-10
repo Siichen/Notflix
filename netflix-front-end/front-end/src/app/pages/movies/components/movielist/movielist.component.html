@@ -1,6 +1,17 @@
 <div class="movie-container">
-  <p class="hehe" routerLink="">go back</p>
-  <div class="movie-card" *ngFor="let movie of movies">
-    <app-movie-item [movie]="movie"></app-movie-item>
-  </div>
+  <app-main-header class="hehe"></app-main-header>
+  <cdk-virtual-scroll-viewport
+    itemSize="210"
+    class="infinite"
+    (scrolledIndexChange)="onScroll()"
+  >
+    <div class="flex_row">
+      <div
+        class="movie_card"
+        *cdkVirtualFor="let movie of movies; templateCacheSize: 10"
+      >
+        <app-movie-item [movie]="movie"></app-movie-item>
+      </div>
+    </div>
+  </cdk-virtual-scroll-viewport>
 </div>

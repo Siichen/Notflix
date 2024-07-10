@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: fit-content;
 }
 
 .step,
@@ -11,7 +11,7 @@
 .p_2,
 .p_3 {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 30px;
   font-size: 0.8rem;
   line-height: 1rem;
 }
@@ -55,6 +55,12 @@
     line-height: 2.5rem;
     height: 2.5rem;
     border: none;
+
+    &:disabled {
+      background-color: red;
+      color: #999999;
+      cursor: not-allowed;
+    }
   }
   .next_btn:hover {
     background-color: rgb(219, 46, 46);

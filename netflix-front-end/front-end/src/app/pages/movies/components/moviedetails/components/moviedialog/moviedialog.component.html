@@ -1,0 +1,20 @@
+<div class="page_container">
+  <main>
+    <!-------------------------------------------------------------->
+    <div class="arrow_container">
+      <button class="video_switcher_left" mat-fab (click)="previousVideo()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <button class="video_switcher_right" mat-fab (click)="nextVideo()">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+    <!-------------------------------------------------------------->
+    <div class="video_container">
+      <div class="video_wrapper">
+        <youtube-player [videoId]="videoId" suggestedQuality="highres">
+        </youtube-player>
+      </div>
+    </div>
+  </main>
+</div>

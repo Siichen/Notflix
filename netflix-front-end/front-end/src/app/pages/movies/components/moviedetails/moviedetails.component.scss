@@ -1,0 +1,113 @@
+app-main-header {
+  position: relative;
+  z-index: 10;
+} // 靠后的元素会覆盖在前面的元素之上 数值越大，元素就越靠近视觉上的表面（越靠近用户）
+
+.details_container {
+  //   background: linear-gradient(270deg, #5d02ff, #ed6f35);
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  box-sizing: border-box;
+  justify-content: center;
+  color: azure;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.movie_title {
+  font-size: xx-large;
+}
+
+.details_page {
+  display: flex; //   这个flex不会继承啊
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 3%;
+  width: 100%;
+}
+
+.col_info {
+  display: flex;
+  flex-direction: column;
+  column-gap: 5px;
+}
+
+.vote,
+.genres,
+.overview,
+.footer {
+  margin-bottom: 40px; /* 添加文字元素之间的底部间距 */
+}
+
+.footer {
+  gap: 10px;
+}
+
+.row_info {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 30px;
+}
+
+.left_box,
+.right_box {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 45%;
+  padding-left: 3%;
+}
+
+.right_box {
+  margin-top: 14%;
+  margin-left: 3%;
+}
+
+.number1_box,
+.number2_box,
+.footer {
+  display: flex;
+  flex-direction: row;
+}
+
+.img {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  width: 200px; // 相较于父
+  height: 150px;
+
+  img {
+    border-radius: 13%;
+  }
+}
+
+.link {
+  color: azure;
+  text-decoration: none;
+}
+
+.button_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 45px;
+}

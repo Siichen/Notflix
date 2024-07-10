@@ -14,7 +14,9 @@
         <p class="movie-sum">
           {{ shortView(movie.movieOverview) }}
         </p>
-        <button class="movie-det">More Details</button>
+        <button class="movie-det" (click)="viewDetails(movie.movieId)">
+          More Details
+        </button>
       </div>
     </div>
   </main>

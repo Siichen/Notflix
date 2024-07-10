@@ -8,6 +8,7 @@
 }
 
 .movie-content {
+  position: relative;
   .movie-name {
     margin-top: 310px;
     font-size: 1.22rem;
@@ -25,6 +26,8 @@
     top: -10px;
     justify-content: space-between;
     margin-right: 5px;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
   span:nth-child(2) {
     font-size: 1.2em;

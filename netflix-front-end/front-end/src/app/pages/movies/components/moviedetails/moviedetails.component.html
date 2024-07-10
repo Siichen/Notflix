@@ -1,0 +1,73 @@
+<main class="details_container" [style.backgroundImage]="getBackground()">
+  <app-main-header></app-main-header>
+  <div *ngIf="movie" class="details_page">
+    <section class="left_box">
+      <!----------------------------------------------------------------->
+      <header class="movie_title" style="font-size: 45px">
+        <p>{{ movie.movieName }}</p>
+      </header>
+      <!----------------------------------------------------------------->
+      <div class="col_info">
+        <div class="row_info">
+          <section class="number1_box">
+            <mat-icon>star</mat-icon>
+            <span class="vote" style="font-size: 1.2rem">
+              {{ movie.movieVote | number : "1.1-1" }} &nbsp;
+            </span>
+            <span class="count"> |&nbsp; {{ movie.movieCount }}</span>
+          </section>
+          <section class="number2_box">
+            <span class="runtime">{{ movie.movieRunTime }}&nbsp;mins · </span>
+            <span class="genres">
+              <ng-container
+                *ngFor="let genre of movie.movieGenres; let i = index"
+                >{{ genre.name }} ·
+              </ng-container>
+            </span>
+            <span class="date">{{ movie.movieDate | date : "yyyy" }}</span>
+          </section>
+        </div>
+      </div>
+      <!----------------------------------------------------------------->
+      <summary class="overview">{{ movie.movieOverview }}</summary>
+      <!----------------------------------------------------------------->
+      <section class="footer" style="font-size: 14px">
+        <footer>Home Page</footer>
+        <mat-icon>fingerprint</mat-icon>
+        <footer>
+          <a class="link" [href]="movie.movieHomePage">{{
+            movie.movieHomePage
+          }}</a>
+        </footer>
+      </section>
+      <!----------------------------------------------------------------->
+      <section>
+        <div class="button_row">
+          <div class="playnow">
+            <button mat-fab extended>
+              <mat-icon>play_arrow</mat-icon>
+              PLAY NOW
+            </button>
+          </div>
+          <div class="trailer">
+            <button mat-fab extended (click)="openDialog()">
+              <mat-icon>favorite</mat-icon>
+              TRAILER
+            </button>
+          </div>
+        </div>
+      </section>
+    </section>
+    <!----------------------------------------------------------------->
+    <section class="right_box">
+      <p style="font-size: 20px">Poster</p>
+      <section class="poster_box">
+        <span class="img"
+          ><img [src]="movie.moviePoster" alt="{{ movie.movieName }}" />
+          <img [src]="movie.movieBackDrop" alt="{{ movie.movieBackDrop }}"
+        /></span>
+      </section>
+    </section>
+  </div>
+</main>
+<!-- <script src="https://www.youtube.com/iframe_api"></script> -->

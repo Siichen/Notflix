@@ -1,30 +1,74 @@
+<app-main-header></app-main-header>
+<hr />
 <main class="main_container">
   <div class="container">
-    <section class="step">STEP 1 OF 3</section>
+    <section class="step">STEP 1 OF 2</section>
     <section class="p_1">Create a password to start your membership</section>
     <section class="p_2">Just a few more steps and you're done!</section>
     <section class="p_3">We hate paperwork, too.</section>
-
+    <!-- ------------------------------------------------------- -->
     <section class="register_form">
-      <form>
+      <form [formGroup]="regForm">
         <p>
           <mat-form-field appearance="fill">
-            <mat-label>Enter your email*</mat-label>
-            <input matInput placeholder="" />
+            <mat-label for="email">Enter your email</mat-label>
+            <input id="email" formControlName="email" matInput />
             <mat-icon matSuffix></mat-icon>
-            <mat-hint></mat-hint>
+            <mat-hint
+              *ngIf="
+                !regForm.controls['email']?.valid &&
+                (regForm.controls['email']?.dirty ||
+                  regForm.controls['email']?.touched)
+              "
+            >
+              <span
+                [hidden]="!(regForm.controls['email'].errors?.['required'] ?? true)"
+                >Eamil is <strong>required</strong></span
+              >
+              <span
+                [hidden]="!(regForm.controls['email'].errors?.['minlength'] ?? true)"
+                >Min length is 10</span
+              >
+              <span *ngIf="regForm.controls['email']?.errors?.['emailExists']"
+                >This email is already registered</span
+              >
+            </mat-hint>
           </mat-form-field>
         </p>
+        <!-- ------------------------------------------------------- -->
         <p>
           <mat-form-field appearance="fill">
-            <mat-label>Add your Password*</mat-label>
-            <input matInput placeholder="" />
+            <mat-label for="password">Add your Password</mat-label>
+            <input matInput id="password" formControlName="password" />
             <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-            <mat-hint></mat-hint>
+            <mat-hint
+              *ngIf="
+                !regForm.controls['password']?.valid &&
+                (regForm.controls['password']?.dirty ||
+                  regForm.controls['password']?.touched)
+              "
+            >
+              <span
+                [hidden]="!(regForm.controls['password'].errors?.['required'] ?? true)"
+                >Eamil or Phone Number is <strong>required</strong></span
+              >
+              <span
+                [hidden]="!(regForm.controls['password'].errors?.['minlength'] ?? true)"
+                >Min length is 10</span
+              >
+            </mat-hint>
           </mat-form-field>
         </p>
-        <button class="next_btn" routerLink="/register_2">Next</button>
+        <!-- ------------------------------------------------------- -->
+        <button
+          class="next_btn"
+          routerLink="/register_2"
+          [disabled]="!regForm.valid"
+        >
+          Next
+        </button>
       </form>
     </section>
   </div>
 </main>
+<app-main-footer></app-main-footer>

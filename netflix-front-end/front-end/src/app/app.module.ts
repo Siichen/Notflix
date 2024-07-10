@@ -25,6 +25,14 @@ import { TmbdService } from './services/tmbd/tmbd.service';
 import { MovieitemComponent } from './pages/movies/components/movieitem/movieitem.component';
 import { MoviesComponent } from './pages/movies/movies.component';
 import { AppRoutingModule } from './app-routing.module';
+import { MoviedetailsComponent } from './pages/movies/components/moviedetails/moviedetails.component';
+import { MatButtonModule } from '@angular/material/button';
+import { YouTubePlayerModule } from '@angular/youtube-player';
+import { YouTubePlayer, YOUTUBE_PLAYER_CONFIG } from '@angular/youtube-player';
+import { MoviedialogComponent } from './pages/movies/components/moviedetails/components/moviedialog/moviedialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -42,6 +50,8 @@ import { AppRoutingModule } from './app-routing.module';
     MoviesComponent,
     MovieitemComponent,
     MovielistComponent,
+    MoviedetailsComponent,
+    MoviedialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,8 +62,25 @@ import { AppRoutingModule } from './app-routing.module';
     MatInputModule,
     MatTableModule,
     HttpClientModule,
+    MatButtonModule,
+    YouTubePlayerModule,
+    MatDialogModule,
+    FormsModule,
+    YouTubePlayer,
+    MatCheckboxModule,
+    ScrollingModule,
   ],
-  providers: [provideAnimationsAsync(), TmbdService, provideHttpClient()],
+  providers: [
+    provideAnimationsAsync(),
+    TmbdService,
+    provideHttpClient(),
+    {
+      provide: YOUTUBE_PLAYER_CONFIG,
+      useValue: {
+        loadApi: true,
+      },
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -26,4 +26,5 @@ export interface Card {
   movieLanguage: string;
   movieVote: number;
   movieOverview: string;
+  movieId: number;
 }

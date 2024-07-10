@@ -1,10 +1,12 @@
 nav {
   background: transparent;
+  justify-content: space-between;
 }
 
 .header-content {
   display: flex;
   flex-direction: row;
+  width: 100vw;
   margin: 0;
   padding: 0;
 }
