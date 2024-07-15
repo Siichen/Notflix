@@ -4,7 +4,7 @@
       <div class="form">
         <h2 class="sign_in_header">Sign In</h2>
         <!-- ------------------------------------------------------- -->
-        <form [formGroup]="signinForm" (ngSubmit)="onSubmit()" novalidate>
+        <form [formGroup]="signinForm" (click)="onSubmit()">
           <p>
             <mat-form-field class="sign_in_input" appearance="fill">
               <mat-label for="emailOrphone">Email or phone number</mat-label>
@@ -86,6 +86,9 @@
           >
             Sign In
           </button>
+          @if (login_msg.msg) {
+          <div class="login_error">{{ login_msg.msg }}</div>
+          }
         </form>
         <!-- ------------------------------------------------------- -->
         <div class="detailed_content">
@@ -105,7 +108,7 @@
           <!-- **************************************** -->
           <div class="sign_up_nav">
             New to Netflix?
-            <a [routerLink]="['/register_1']">Sign up now</a>.
+            <a routerLink="/register">Sign up now</a>.
           </div>
           <!-- **************************************** -->
           <p class="right_description">
@@ -118,3 +121,4 @@
     </div>
   </div>
 </main>
+<!-- <app-test></app-test> -->

@@ -24,6 +24,7 @@ export class MoviedetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const movieId = this.route.snapshot.paramMap.get('id');
+    console.log(`Movie ID from route: ${movieId}`);
     if (movieId) {
       this.sbp = this.tmbdService
         .getDetails(Number(movieId))

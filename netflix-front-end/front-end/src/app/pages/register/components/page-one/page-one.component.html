@@ -26,7 +26,7 @@
                 >Eamil is <strong>required</strong></span
               >
               <span
-                [hidden]="!(regForm.controls['email'].errors?.['minlength'] ?? true)"
+                [hidden]="!(regForm.controls['email'].errors?.['minlength'])"
                 >Min length is 10</span
               >
               <span *ngIf="regForm.controls['email']?.errors?.['emailExists']"
@@ -49,11 +49,11 @@
               "
             >
               <span
-                [hidden]="!(regForm.controls['password'].errors?.['required'] ?? true)"
-                >Eamil or Phone Number is <strong>required</strong></span
+                [hidden]="!(regForm.controls['password'].errors?.['required'])"
+                >Password is <strong>required</strong></span
               >
               <span
-                [hidden]="!(regForm.controls['password'].errors?.['minlength'] ?? true)"
+                [hidden]="!(regForm.controls['password'].errors?.['minlength'])"
                 >Min length is 10</span
               >
             </mat-hint>
@@ -61,8 +61,8 @@
         </p>
         <!-- ------------------------------------------------------- -->
         <button
+          routerLink="/register2"
           class="next_btn"
-          routerLink="/register_2"
           [disabled]="!regForm.valid"
         >
           Next
@@ -72,3 +72,4 @@
   </div>
 </main>
 <app-main-footer></app-main-footer>
+<!-- (click)="navigateTo('register2')" -->

@@ -34,17 +34,23 @@
   font-size: 1rem;
   border-radius: 5px;
 }
+
+.button_box {
+  position: relative;
+  height: 100%;
+}
+
 .start_btn {
   background-color: #e50914;
   outline: none;
   text-align: center;
   height: 100%;
-  // line-height: 2.5rem;
+  line-height: 2.5rem;
   width: 9rem;
   border: none;
   color: white;
   // font-weight: 50px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   border-radius: 3px;
   position: relative;
   // height: 40px;

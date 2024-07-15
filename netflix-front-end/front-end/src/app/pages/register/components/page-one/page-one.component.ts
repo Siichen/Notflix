@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { RegisterService } from '../../../../services/validators/register.service';
 import { catchError, map, Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-one',
@@ -18,7 +19,11 @@ import { catchError, map, Observable, of } from 'rxjs';
 export class PageOneComponent {
   regForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private rs: RegisterService) {
+  constructor(
+    private fb: FormBuilder,
+    private rs: RegisterService,
+    private router: Router
+  ) {
     this.regForm = this.fb.group({
       email: [
         '',
@@ -36,5 +41,8 @@ export class PageOneComponent {
         catchError(() => of(null))
       );
     };
+  }
+  navigateTo(route: string) {
+    this.router.navigate([route]);
   }
 }

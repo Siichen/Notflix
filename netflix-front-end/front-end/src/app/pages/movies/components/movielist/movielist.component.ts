@@ -1,16 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TmbdService } from '../../../../services/tmbd/tmbd.service';
 import { Card } from '../../../../interfaces/Movie/discoverMovie.interface';
-import { Observable, Subscription } from 'rxjs';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import { Subscription } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-movie-list',
+  selector: 'app-movielist',
   templateUrl: './movielist.component.html',
   styleUrls: ['./movielist.component.scss'],
 })
