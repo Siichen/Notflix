@@ -4,30 +4,29 @@
       <div class="form">
         <h2 class="sign_in_header">Sign In</h2>
         <!-- ------------------------------------------------------- -->
-        <form [formGroup]="signinForm" (click)="onSubmit()">
+        <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+          <div *ngIf="login_msg">
+            {{ login_msg.msg }}
+          </div>
           <p>
             <mat-form-field class="sign_in_input" appearance="fill">
-              <mat-label for="emailOrphone">Email or phone number</mat-label>
-              <input
-                id="emailOrphone"
-                formControlName="emailOrphone"
-                matInput
-              />
+              <mat-label for="email">Email or phone number</mat-label>
+              <input id="email" formControlName="email" matInput />
               <mat-hint
                 *ngIf="
-                  !signinForm.controls['emailOrphone'].valid &&
-                  (signinForm.controls['emailOrphone'].dirty ||
-                    signinForm.controls['emailOrphone'].touched)
+                  !signinForm.controls['email'].valid &&
+                  (signinForm.controls['email'].dirty ||
+                    signinForm.controls['email'].touched)
                 "
               >
                 <span
                   [hidden]="
-                  !signinForm.controls['emailOrphone'].errors?.['required']
+                  !signinForm.controls['email'].errors?.['required']
                 "
                   >Eamil or Phone Number is <strong>required</strong></span
                 >
                 <span
-                  [hidden]="!signinForm.controls['emailOrphone'].errors?.['minlength']"
+                  [hidden]="!signinForm.controls['email'].errors?.['minlength']"
                   >Min length is 10</span
                 >
               </mat-hint>
@@ -73,7 +72,7 @@
                 >
                 <span
                   [hidden]="!signinForm.controls['password'].errors?.['minlength']"
-                  >Min length is 8</span
+                  >Min length is 1</span
                 >
               </mat-hint>
             </mat-form-field>

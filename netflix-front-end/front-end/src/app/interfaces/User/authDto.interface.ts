@@ -4,3 +4,7 @@ export interface AuthDto {
   accessToken: string;
   role: UserRole;
 }
+
+export interface RefreshTokenDto {
+  token: string;
+}

@@ -1,12 +1,24 @@
+// export const appInitializer = (authService: AuthService) => {
+//   console.log('this is Initialization');
+//   return () =>
+//     new Promise<void>((resolve) => {
+//       authService.refreshToken().subscribe({
+//         next: () => resolve(),
+//         error: () => resolve(),
+//       });
+//     });
+// };
 import { AuthService } from '../services/auth/auth.service';
 
-export const appInitializer = (authService: AuthService) => {
-  console.log('this is Initialization');
+export function appInitializer(authService: AuthService) {
   return () =>
-    new Promise<void>((resolve) => {
+    new Promise((resolve, reject) => {
       authService.refreshToken().subscribe({
-        next: () => resolve(),
-        error: () => resolve(),
+        next: () => resolve(true),
+        error: () => {
+          console.error('Error during app initialization');
+          resolve(true);
+        },
       });
     });
-};
+}

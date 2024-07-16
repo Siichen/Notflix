@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
+import { CoreModule } from '../../core/core.module';
 
 const routes: Routes = [{ path: '', component: LoginComponent }];
 
@@ -28,6 +29,7 @@ const routes: Routes = [{ path: '', component: LoginComponent }];
     MatInputModule,
     MatCheckboxModule,
     ReactiveFormsModule,
+    CoreModule.forRoot(),
   ],
   // changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [AuthService],

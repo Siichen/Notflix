@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable, signal } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, BehaviorSubject, of, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { TmbdService } from '../tmbd/tmbd.service';
 import { AppUser } from '../../interfaces/User/user-login.interface';
@@ -16,14 +16,11 @@ import { UserInfo } from '../../interfaces/User/user-signup.interface';
 @Injectable()
 export class AuthService {
   private jwtHelper = new JwtHelperService();
-  userSignal = signal<AppUserAuth>({});
-
-  private appUserRegister = new AppUserRegister();
+  private userSubject = new BehaviorSubject<AppUserAuth | null>(null);
+  user$ = this.userSubject.asObservable();
   private refreshTokenTimeout!: ReturnType<typeof setTimeout>;
 
-  get appNewUser(): AppUserRegister {
-    return this.appUserRegister;
-  }
+  private appUserRegister = new AppUserRegister();
 
   constructor(
     private readonly router: Router,
@@ -32,7 +29,6 @@ export class AuthService {
     @Inject(AUTHSERVER) public readonly authServerPath: string
   ) {}
 
-  /* SignIn */
   login(appUser: AppUser): Observable<AuthDto> {
     return this.http
       .post<AuthDto>(`${this.authServerPath}/auth/signin`, appUser)
@@ -42,117 +38,92 @@ export class AuthService {
           this.router.navigate(['/movies']);
         }),
         catchError((error) => {
-          return throwError('SomeThing Wrong during sign in!', error);
+          if (error.status === 401) {
+            return throwError(() => new Error('Invalid credentials'));
+          }
+          return throwError(
+            () => new Error('Something went wrong during sign in!')
+          );
         })
       );
   }
 
-  /* SignOut */
-  logout() {
-    localStorage.removeItem('access_token');
+  private setUserValueByToken = ({ accessToken, role }: AuthDto) => {
+    localStorage.setItem('access_token', accessToken);
 
-    this.stopRefreshTokenTimer();
+    const { id, username, email, tmdb_key, exp } =
+      this.jwtHelper.decodeToken(accessToken);
 
-    this.userSignal.set({});
-    this.router.navigate(['/home']);
-  }
+    localStorage.setItem('id', id);
+    localStorage.setItem('username', username);
+    localStorage.setItem('email', email);
+    localStorage.setItem('tmdb_key', tmdb_key);
+    localStorage.setItem('role', role);
 
-  /* SignUp */
-  addUserInfo(userInfo: UserInfo) {
-    this.appUserRegister = {
-      ...this.appUserRegister,
-      ...userInfo,
+    const user = {
+      id,
+      username,
+      email,
+      role,
+      tmdb_key,
+      jwtToken: accessToken,
     };
-  }
-  signup(userRole: { role: UserRole }): Observable<AuthDto | string> {
-    this.appUserRegister = {
-      ...this.appUserRegister,
-      ...userRole,
-    };
-    const { username, password, email, role } = this.appUserRegister;
+    this.userSubject.next(user);
+    this.startRefreshTokenTimer(exp);
+  };
 
-    if (!username || !password || !email || !role) return of('Register failed');
-
-    return this.http
-      .post<AuthDto>(
-        [this.authServerPath, 'auth', 'signup'].join('/'),
-        this.appUserRegister
-      )
-      .pipe(
-        tap(({ accessToken, role }: AuthDto) => {
-          this.setUserValueByToken({ accessToken, role });
-          this.router.navigate(['/movies']);
-        }),
-        catchError((error) => {
-          return throwError('SomeThing Wrong during sign up!', error);
-        })
-      );
-  }
-
-  /* upgrade Uer Permission */
-  upgradePermission(userRole: { role: UserRole }): Observable<AuthDto> {
-    console.log('Change permission class to: ', userRole.role);
-    this.stopRefreshTokenTimer();
-
-    return this.http
-      .patch<AuthDto>(
-        [this.authServerPath, 'auth', 'userupdate'].join('/'),
-        userRole
-      )
-      .pipe(
-        tap(({ accessToken, role }: AuthDto) => {
-          this.setUserValueByToken({ accessToken, role });
-          this.router.navigate(['/movies']);
-        }),
-        catchError((error) => {
-          return throwError('SomeThing Wrong during sign up!', error);
-        })
-      );
-  }
-
-  //* helper methods;
-  refreshToken(): Observable<AuthDto | string> {
+  refreshToken(): Observable<any> {
     const token = localStorage.getItem('access_token');
     if (!token) {
       this.router.navigate(['/']);
       return of('err');
     }
-    const headers = new HttpHeaders().set('Authorization', token);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    const id = localStorage.getItem('id');
+    const username = localStorage.getItem('username');
+    const email = localStorage.getItem('email');
+    const tmdb_key = localStorage.getItem('tmdb_key');
+    const role = localStorage.getItem('role') as UserRole;
+
+    if (!id || !username || !email || !tmdb_key) {
+      console.error('Required user information not found in local storage');
+      return of('err');
+    }
+
+    const refreshTokenDto = { id, username, email, role, tmdb_key }; // 创建 refreshTokenDto 对象
     return this.http
-      .get<AuthDto>(`${this.authServerPath}/auth/refresh-token`, { headers })
+      .post<any>(`${this.authServerPath}/auth/refresh-token`, refreshTokenDto, {
+        headers,
+      })
       .pipe(
-        tap(({ accessToken, role }: AuthDto) => {
-          this.setUserValueByToken({ accessToken, role });
+        tap((response: any) => {
+          this.setUserValueByToken({
+            accessToken: response.accessToken,
+            role: response.role,
+          });
+        }),
+        catchError((error) => {
+          console.error('Something went wrong during token refresh!', error);
+          return throwError(
+            () => new Error('Something went wrong during token refresh!')
+          );
         })
       );
   }
+
   private startRefreshTokenTimer(exp: string) {
-    // set a timeout to refresh the token a minute before it expires
     const expires = new Date(+exp * 1000);
     const timeout = expires.getTime() - Date.now();
 
     this.refreshTokenTimeout = setTimeout(() => {
-      if (this.userSignal().jwtToken) {
+      if (this.userSubject.value?.jwtToken) {
         this.refreshToken().subscribe();
       }
     }, timeout);
   }
+
   private stopRefreshTokenTimer() {
     clearTimeout(this.refreshTokenTimeout);
   }
-
-  /* reuseable code in for signin, signup, refresh, update */
-  private setUserValueByToken = ({ accessToken, role }: AuthDto) => {
-    localStorage.setItem('access_token', accessToken);
-
-    const { id, username, email, exp } =
-      this.jwtHelper.decodeToken(accessToken);
-
-    const user = {
-      ...{ id, username, email, role },
-      jwtToken: accessToken,
-    };
-    this.userSignal.set(user);
-    this.startRefreshTokenTimer(exp);
-  };
 }
