@@ -21,8 +21,10 @@
         <input class="start_input" type="text" placeholder="Email Address" />
         <div class="button_box">
           <a class="start_btn" [routerLink]="['/login']">Get Started</a>
+          <a routerLink="/login">Get Started</a>
+          <button (click)="jumpto()">get</button>
           <!-- <button routerLink="/login">Get Started</button> -->
-          <!-- 为啥第二个就跳转不了第一个就可以 -->
+          <!-- 最后一个跳不了 -->
         </div>
       </form>
     </section>

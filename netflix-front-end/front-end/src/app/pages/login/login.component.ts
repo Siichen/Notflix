@@ -84,10 +84,12 @@ export class LoginComponent {
       this.authService.login(credencialSignIn).subscribe(
         (response: any) => {
           this.login_msg.msg = '';
+          this.errorMessage = null;
         },
         (err: any) => {
           console.log(err);
           this.login_msg.msg = 'Please check your login credentials';
+          this.errorMessage = 'Invalid login credentials';
         }
       );
     }

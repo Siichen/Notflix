@@ -1,6 +1,6 @@
 import { UserRole } from './user-auth.interface';
 
-export interface AuthDto {
+export interface Token {
   accessToken: string;
   role: UserRole;
 }

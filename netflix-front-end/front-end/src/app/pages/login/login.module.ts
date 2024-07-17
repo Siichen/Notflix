@@ -13,8 +13,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { CoreModule } from '../../core/core.module';
+import { loginGuard } from '../../core/guards/login.guard';
 
 const routes: Routes = [{ path: '', component: LoginComponent }];
+// canActivate: [loginGuard]
 
 @NgModule({
   declarations: [LoginComponent],

@@ -60,11 +60,7 @@
           </mat-form-field>
         </p>
         <!-- ------------------------------------------------------- -->
-        <button
-          routerLink="/register2"
-          class="next_btn"
-          [disabled]="!regForm.valid"
-        >
+        <button class="next_btn" [disabled]="!regForm.valid" (click)="jumpto()">
           Next
         </button>
       </form>
@@ -73,3 +69,4 @@
 </main>
 <app-main-footer></app-main-footer>
 <!-- (click)="navigateTo('register2')" -->
+<!-- routerLink="/register2" -->

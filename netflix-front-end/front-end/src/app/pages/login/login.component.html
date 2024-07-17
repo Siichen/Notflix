@@ -5,7 +5,7 @@
         <h2 class="sign_in_header">Sign In</h2>
         <!-- ------------------------------------------------------- -->
         <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
-          <div *ngIf="login_msg">
+          <div *ngIf="login_msg" class="login_error">
             {{ login_msg.msg }}
           </div>
           <p>

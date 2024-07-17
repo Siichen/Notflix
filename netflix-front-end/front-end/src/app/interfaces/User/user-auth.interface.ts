@@ -4,6 +4,7 @@ export class AppUserAuth {
   email?: string;
   role?: UserRole = UserRole.USER;
   jwtToken?: string;
+  tmdb_key?: string;
 }
 
 export enum UserRole {

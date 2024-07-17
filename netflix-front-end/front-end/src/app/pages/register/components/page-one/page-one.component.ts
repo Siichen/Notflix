@@ -42,7 +42,10 @@ export class PageOneComponent {
       );
     };
   }
-  navigateTo(route: string) {
-    this.router.navigate([route]);
+  // navigateTo(route: string) {
+  //   this.router.navigate(['/register2']);
+  // }
+  jumpto(): void {
+    this.router.navigate(['register2']);
   }
 }
