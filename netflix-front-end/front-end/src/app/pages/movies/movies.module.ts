@@ -17,8 +17,6 @@ import {
 import { MoviedialogComponent } from './components/moviedetails/components/moviedialog/moviedialog.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SharedModule } from '../../shared/shared.module';
-import { LoginGuard } from '../../core/guards/login.guard';
-
 // const routes: Routes = [
 //   {
 //     path: '',

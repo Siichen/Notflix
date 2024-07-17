@@ -79,10 +79,12 @@ export class PageOneComponent {
     }
   }
 
-  jumpto(): void {
-    console.log('Navigating to register2');
-    this.router.navigate(['register2']);
-  }
+  // jumpto(): void {
+  //   console.log('Navigating to register2');
+  //   this.router.navigate(['register2']);
+  // }
+
+  // 我这不加guard他也跳不过去不是guard的锅
 }
 // navigateTo(route: string) {
 //   this.router.navigate(['/register2']);

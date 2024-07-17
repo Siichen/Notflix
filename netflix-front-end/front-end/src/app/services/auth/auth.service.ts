@@ -60,29 +60,16 @@ export class AuthService {
         appUserRegister
       )
       .pipe(
-        // tap(({ user, accessToken }) => {
-        //   console.log('Signup successful, received token:', {
-        //     user,
-        //     accessToken,
-        //   });
-        //   if (accessToken) {
-        //     const role = user.role || UserRole.USER;
-        //     this.setUserValueByToken({ accessToken, role });
-        //     this.router.navigate(['/register2']);
-        //   } else {
-
-        //     throw new Error('AccessToken is null');
-        //   }
-        tap((response) => {
-          console.log('Signup successful, received response:', response);
-          const { user, accessToken } = response;
+        tap(({ user, accessToken }) => {
+          console.log('Signup successful, received token:', {
+            user,
+            accessToken,
+          });
           if (accessToken) {
-            console.log('Received accessToken:', accessToken);
             const role = user?.role || UserRole.USER;
             this.setUserValueByToken({ accessToken, role });
             this.router.navigate(['/register2']);
           } else {
-            console.error('AccessToken is null', response);
             throw new Error('AccessToken is null');
           }
         }),
@@ -141,7 +128,7 @@ export class AuthService {
       return of('err');
     }
 
-    const refreshTokenDto = { id, username, email, role, tmdb_key }; // 创建 refreshTokenDto 对象
+    const refreshTokenDto = { id, username, email, role, tmdb_key };
     return this.http
       .post<any>(`${this.authServerPath}/auth/refresh-token`, refreshTokenDto, {
         headers,
@@ -184,3 +171,11 @@ export class AuthService {
     );
   }
 }
+// isLoggedIn(): Observable<boolean> {
+//   return this.http
+//     .get<{ loggedIn: boolean }>(`${this.authServerPath}/auth/check-login`)
+//     .pipe(
+//       map((response) => response.loggedIn),
+//       catchError(() => of(false))
+//     );
+// }
