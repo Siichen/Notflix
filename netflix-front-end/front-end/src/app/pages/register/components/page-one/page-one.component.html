@@ -8,7 +8,7 @@
     <section class="p_3">We hate paperwork, too.</section>
     <!-- ------------------------------------------------------- -->
     <section class="register_form">
-      <form [formGroup]="regForm">
+      <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
         <p>
           <mat-form-field appearance="fill">
             <mat-label for="email">Enter your email</mat-label>

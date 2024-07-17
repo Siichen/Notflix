@@ -38,7 +38,6 @@ export const routes: Routes = [
       import('./shared/shared.module').then((m) => m.SharedModule),
   },
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],

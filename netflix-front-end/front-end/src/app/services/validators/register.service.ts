@@ -11,7 +11,7 @@ import {
   providedIn: 'root',
 })
 export class RegisterService {
-  private readonly baseURL = 'http://localhost:4200/auth/check-email';
+  private readonly baseURL = 'http://localhost:4231/auth/check-email';
 
   constructor(private http: HttpClient) {}
 

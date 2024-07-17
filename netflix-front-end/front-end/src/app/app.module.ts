@@ -24,11 +24,7 @@ import { CoreModule } from './core/core.module';
     BrowserAnimationsModule,
     CoreModule.forRoot(),
   ],
-  providers: [
-    JwtHelperService,
-    TmbdService,
-    // { provide: AUTH_SERVER_PATH, useValue: 'http://localhost:4231' },
-  ],
+  providers: [JwtHelperService, TmbdService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

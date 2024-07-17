@@ -10,6 +10,8 @@ import {
 import { RegisterService } from '../../../../services/validators/register.service';
 import { catchError, map, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-page-one',
@@ -22,12 +24,14 @@ export class PageOneComponent {
   constructor(
     private fb: FormBuilder,
     private rs: RegisterService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {
     this.regForm = this.fb.group({
       email: [
         '',
-        [Validators.required, Validators.minLength(10)],
+        [Validators.required, Validators.email, Validators.minLength(5)],
         [this.emailValidator()],
       ],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -42,10 +46,47 @@ export class PageOneComponent {
       );
     };
   }
-  // navigateTo(route: string) {
-  //   this.router.navigate(['/register2']);
-  // }
+
+  onSubmit() {
+    console.log('Form submit attempt');
+    if (this.regForm.valid) {
+      const formValue = this.regForm.value;
+      const username = 'Sichen';
+      const tmdb_key = 'abcdefjhijklmnopqrstuvwxyz';
+
+      const registrationData = {
+        ...formValue,
+        username,
+        tmdb_key,
+      };
+      console.log('Form is valid, submitting:', registrationData);
+      this.authService.signup(registrationData).subscribe(
+        (response) => {
+          console.log('User registered successfully', response);
+          if (response && response.accessToken) {
+            console.log('Received accessToken:', response.accessToken);
+            this.router.navigate(['register2'], { relativeTo: this.route });
+          } else {
+            console.error('No accessToken received');
+          }
+        },
+        (error) => {
+          console.error('Error registering user', error);
+        }
+      );
+    } else {
+      console.log('Form is invalid');
+    }
+  }
+
   jumpto(): void {
+    console.log('Navigating to register2');
     this.router.navigate(['register2']);
   }
 }
+// navigateTo(route: string) {
+//   this.router.navigate(['/register2']);
+// }
+// jumpto(): void {
+//   this.router.navigate(['register2']);
+// }
