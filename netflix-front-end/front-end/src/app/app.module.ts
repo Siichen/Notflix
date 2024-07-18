@@ -5,7 +5,7 @@ import { MainFooterComponent } from './shared/components/main-footer/main-footer
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TmbdService } from './services/tmbd/tmbd.service';
-import { AppRoutingModule, routes } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
@@ -20,7 +20,8 @@ import { CoreModule } from './core/core.module';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot([]),
+    // RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     CoreModule.forRoot(),
   ],

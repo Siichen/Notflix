@@ -10,7 +10,7 @@ import { RouterModule, Routes } from '@angular/router';
 //   { path: 'movie/:id', component: MoviedetailsComponent },
 //   { path: '**', component: ErrorComponent },
 // ];
-export const routes: Routes = [
+const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home',
@@ -32,12 +32,13 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./pages/movies/movies.module').then((m) => m.MoviesModule),
   },
-  {
-    path: '**',
-    loadChildren: () =>
-      import('./shared/shared.module').then((m) => m.SharedModule),
-  },
+  // {
+  //   path: '**',
+  //   loadChildren: () =>
+  //     import('./shared/shared.module').then((m) => m.SharedModule),
+  // },
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],

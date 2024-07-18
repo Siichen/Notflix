@@ -33,10 +33,14 @@ const routes: Routes = [
     path: '',
     component: MovielistComponent,
     // canActivate: [LoginGuard],
-    children: [
-      // movies.component.html
-      { path: 'details/:id', component: MoviedetailsComponent },
-    ],
+    // children: [
+    //   // movies.component.html
+    //   { path: 'details/:id', component: MoviedetailsComponent },
+    // ],
+  },
+  {
+    path: 'details/:id',
+    component: MoviedetailsComponent,
   },
 ];
 

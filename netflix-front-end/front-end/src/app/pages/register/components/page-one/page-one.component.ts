@@ -64,8 +64,9 @@ export class PageOneComponent {
         (response) => {
           console.log('User registered successfully', response);
           if (response && response.accessToken) {
-            console.log('Received accessToken:', response.accessToken);
             this.router.navigate(['register2'], { relativeTo: this.route });
+            console.log('why????');
+            console.log('Received accessToken:', response.accessToken);
           } else {
             console.error('No accessToken received');
           }
@@ -76,6 +77,7 @@ export class PageOneComponent {
       );
     } else {
       console.log('Form is invalid');
+      this.router.navigate(['register2'], { relativeTo: this.route });
     }
   }
 
