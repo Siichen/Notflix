@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { LoginGuard } from './core/guards/login.guard';
 // import { LoginGuard } from './core/guards/login.guard';
 
 @NgModule({
@@ -27,8 +28,8 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     BrowserAnimationsModule,
     CoreModule.forRoot(),
   ],
-  providers: [JwtHelperService, TmbdService],
-  // LoginGuard,
+  providers: [JwtHelperService, TmbdService, LoginGuard],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -18,11 +18,12 @@ import { UserInfo } from '../../interfaces/User/user-signup.interface';
 })
 export class AuthService {
   private jwtHelper = new JwtHelperService();
-  // userSubject = new BehaviorSubject<AppUserAuth | null>(null);
-  userSubject = new BehaviorSubject<AppUserAuth | null>(
-    this.getCurrentUserFromLocalStorage()
-  );
+  userSubject = new BehaviorSubject<AppUserAuth | null>(null);
   user$ = this.userSubject.asObservable();
+  // isLoggedIn: boolean = false;
+  isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+  loading$ = new BehaviorSubject<boolean>(false);
   private refreshTokenTimeout!: ReturnType<typeof setTimeout>;
 
   private appUserRegister = new AppUserRegister();
@@ -45,8 +46,10 @@ export class AuthService {
       .pipe(
         tap(({ accessToken, role }: Token) => {
           this.setUserValueByToken({ accessToken, role });
+          // this.isLoggedIn = true;
+          this.isLoggedInSubject.next(true);
           this.router.navigate(['/movies']);
-          console.log('User logged in:', this.userSubject.value);
+          console.log('User logged in:', this.userSubject.value); // getvalue()????
         }),
         catchError((error) => {
           if (error.status === 401) {
@@ -77,6 +80,8 @@ export class AuthService {
           if (accessToken) {
             const role = user?.role || UserRole.USER;
             this.setUserValueByToken({ accessToken, role });
+            // this.isLoggedIn = true;
+            this.isLoggedInSubject.next(true);
             this.router.navigate(['/register2']);
           } else {
             throw new Error('AccessToken is null');
@@ -101,7 +106,7 @@ export class AuthService {
 
   private setUserValueByToken = ({ accessToken, role }: Token) => {
     const decodedToken = this.jwtHelper.decodeToken(accessToken);
-    console.log('Decoded token:', decodedToken);
+    // console.log('Decoded token:', decodedToken);
     if (!decodedToken) {
       throw new Error('Invalid accessToken');
     }
@@ -118,7 +123,14 @@ export class AuthService {
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.userSubject.next(user);
     this.startRefreshTokenTimer(exp);
-    console.log('User set in userSubject:', user);
+    // this.isLoggedIn = true;
+    this.isLoggedInSubject.next(true);
+    console.log(
+      'User set in userSubject:',
+      user,
+      'isLoggedIn:',
+      this.isLoggedInSubject.value
+    );
   };
 
   refreshToken(): Observable<any> {

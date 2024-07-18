@@ -78,13 +78,8 @@
             </mat-form-field>
           </p>
           <!-- ------------------------------------------------------- -->
-          <button
-            class="title"
-            routerLink="/movies"
-            [disabled]="!signinForm.valid"
-          >
-            Sign In
-          </button>
+          <!-- routerLink="/movies" -->
+          <button class="title" [disabled]="!signinForm.valid">Sign In</button>
           @if (login_msg.msg) {
           <div class="login_error">{{ login_msg.msg }}</div>
           }

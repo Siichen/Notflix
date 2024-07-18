@@ -17,6 +17,8 @@ import {
 import { MoviedialogComponent } from './components/moviedetails/components/moviedialog/moviedialog.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SharedModule } from '../../shared/shared.module';
+import { MovieItemResolver } from '../../core/resolvers/movie-item.resolver';
+import { LoginGuard } from '../../core/guards/login.guard';
 // import { LoginGuard } from '../../core/guards/login.guard';
 
 // const routes: Routes = [
@@ -34,7 +36,6 @@ const routes: Routes = [
   {
     path: '',
     component: MovielistComponent,
-    // canActivate: [LoginGuard],
 
     // children: [
     //   // movies.component.html
@@ -44,6 +45,7 @@ const routes: Routes = [
   {
     path: 'details/:id',
     component: MoviedetailsComponent,
+    resolve: { movie: MovieItemResolver },
   },
 ];
 
@@ -67,6 +69,7 @@ const routes: Routes = [
     SharedModule,
   ],
   providers: [
+    MovieItemResolver,
     {
       provide: YOUTUBE_PLAYER_CONFIG,
       useValue: {

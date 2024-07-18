@@ -5,6 +5,7 @@ export class AppUserRegister {
   password: string = '';
   email: string = '';
   tmdb_key: string = '';
+  role: string = 'USER'; // new
 }
 
 export interface UserInfo {

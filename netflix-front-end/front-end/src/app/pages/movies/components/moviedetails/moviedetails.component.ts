@@ -20,7 +20,9 @@ export class MoviedetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private tmbdService: TmbdService,
     public dialog: MatDialog
-  ) {}
+  ) {
+    this.movie = this.route.snapshot.data['movie'];
+  }
 
   ngOnInit(): void {
     const movieId = this.route.snapshot.paramMap.get('id');
