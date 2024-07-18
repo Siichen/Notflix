@@ -60,9 +60,9 @@
           </mat-form-field>
         </p>
         <!-- ------------------------------------------------------- -->
-        <div class="next_btn">
-          <button type="submit" [disabled]="!regForm.valid">
-            <a routerLink="register2">Next</a>
+        <div routerLink="register2">
+          <button class="next_btn" type="submit" [disabled]="!regForm.valid">
+            Next
           </button>
         </div>
       </form>

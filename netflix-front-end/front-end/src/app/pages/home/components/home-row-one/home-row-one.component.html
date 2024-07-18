@@ -20,12 +20,13 @@
       <form>
         <input class="start_input" type="text" placeholder="Email Address" />
         <div class="button_box">
-          <a class="start_btn" [routerLink]="['/login']">Get Started</a>
-          <a routerLink="/login">Get Started</a>
-          <button (click)="jumpto()">get</button>
-          <!-- <button routerLink="/login">Get Started</button> -->
-          <!-- 最后一个跳不了 -->
+          <button class="start_btn">
+            <a routerLink="/login">Get Started</a>
+          </button>
         </div>
+        <!-- <a routerLink="/login">Get Started</a>
+          <button (click)="jumpto()">get</button> -->
+        <!-- <button routerLink="/login">Get Started</button> -->
       </form>
     </section>
   </main>
