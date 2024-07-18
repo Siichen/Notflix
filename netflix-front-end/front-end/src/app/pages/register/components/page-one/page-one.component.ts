@@ -19,7 +19,7 @@ import { AuthService } from '../../../../services/auth/auth.service';
   styleUrls: ['./page-one.component.scss'],
 })
 export class PageOneComponent {
-  regForm: FormGroup;
+  regForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -65,7 +65,6 @@ export class PageOneComponent {
           console.log('User registered successfully', response);
           if (response && response.accessToken) {
             this.router.navigate(['register2'], { relativeTo: this.route });
-            console.log('why????');
             console.log('Received accessToken:', response.accessToken);
           } else {
             console.error('No accessToken received');
@@ -80,7 +79,6 @@ export class PageOneComponent {
       this.router.navigate(['register2'], { relativeTo: this.route });
     }
   }
-
   // jumpto(): void {
   //   console.log('Navigating to register2');
   //   this.router.navigate(['register2']);

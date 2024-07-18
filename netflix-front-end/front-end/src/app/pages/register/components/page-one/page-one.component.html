@@ -7,7 +7,7 @@
     <section class="p_2">Just a few more steps and you're done!</section>
     <section class="p_3">We hate paperwork, too.</section>
     <!-- ------------------------------------------------------- -->
-    <section class="register_form">
+    <div class="register_form">
       <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
         <p>
           <mat-form-field appearance="fill">
@@ -60,13 +60,11 @@
           </mat-form-field>
         </p>
         <!-- ------------------------------------------------------- -->
-        <div routerLink="register2">
-          <button class="next_btn" type="submit" [disabled]="!regForm.valid">
-            Next
-          </button>
+        <div>
+          <button class="next_btn" type="submit">Next</button>
         </div>
       </form>
-    </section>
+    </div>
   </div>
 </main>
 <!-- <router-outlet></router-outlet> -->
@@ -76,3 +74,5 @@
 <!-- (click)="jumpto()" -->
 <!-- [routerLink]="['/register/register2']" -->
 <!-- [routerLink]="['register2']" -->
+<!-- [disabled]="!regForm.valid" -->
+<!-- routerLink="register2" -->

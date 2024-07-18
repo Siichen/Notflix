@@ -171,11 +171,17 @@ export class AuthService {
     );
   }
 }
-// isLoggedIn(): Observable<boolean> {
-//   return this.http
-//     .get<{ loggedIn: boolean }>(`${this.authServerPath}/auth/check-login`)
-//     .pipe(
-//       map((response) => response.loggedIn),
-//       catchError(() => of(false))
-//     );
+
+// isLoggedIn(): boolean {
+//   const token = localStorage.getItem('token');
+//   if (!token) {
+//     return false;
+//   } else {
+//     return true;
+//   }
+// // }
+
+// logout() {
+//   localStorage.removeItem('token');
+//   this.router.navigate(['/login']);
 // }

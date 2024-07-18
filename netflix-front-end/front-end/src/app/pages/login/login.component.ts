@@ -52,6 +52,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -64,7 +65,11 @@ export class LoginComponent {
   login_msg = { msg: '' };
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.signinForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(1)]],
@@ -85,6 +90,7 @@ export class LoginComponent {
         (response: any) => {
           this.login_msg.msg = '';
           this.errorMessage = null;
+          console.log('Login successful:', response);
         },
         (err: any) => {
           console.log(err);
