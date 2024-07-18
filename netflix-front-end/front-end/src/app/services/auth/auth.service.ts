@@ -18,7 +18,10 @@ import { UserInfo } from '../../interfaces/User/user-signup.interface';
 })
 export class AuthService {
   private jwtHelper = new JwtHelperService();
-  private userSubject = new BehaviorSubject<AppUserAuth | null>(null);
+  // userSubject = new BehaviorSubject<AppUserAuth | null>(null);
+  userSubject = new BehaviorSubject<AppUserAuth | null>(
+    this.getCurrentUserFromLocalStorage()
+  );
   user$ = this.userSubject.asObservable();
   private refreshTokenTimeout!: ReturnType<typeof setTimeout>;
 
@@ -31,6 +34,11 @@ export class AuthService {
     @Inject(AUTHSERVER) public readonly authServerPath: string
   ) {}
 
+  private getCurrentUserFromLocalStorage(): AppUserAuth | null {
+    const user = localStorage.getItem('currentUser');
+    return user ? JSON.parse(user) : null;
+  }
+
   login(appUser: AppUser): Observable<Token> {
     return this.http
       .post<Token>(`${this.authServerPath}/auth/signin`, appUser)
@@ -38,6 +46,7 @@ export class AuthService {
         tap(({ accessToken, role }: Token) => {
           this.setUserValueByToken({ accessToken, role });
           this.router.navigate(['/movies']);
+          console.log('User logged in:', this.userSubject.value);
         }),
         catchError((error) => {
           if (error.status === 401) {
@@ -106,8 +115,10 @@ export class AuthService {
       tmdb_key,
       jwtToken: accessToken,
     };
+    localStorage.setItem('currentUser', JSON.stringify(user));
     this.userSubject.next(user);
     this.startRefreshTokenTimer(exp);
+    console.log('User set in userSubject:', user);
   };
 
   refreshToken(): Observable<any> {
@@ -164,12 +175,12 @@ export class AuthService {
     clearTimeout(this.refreshTokenTimeout);
   }
 
-  isLoggedIn(): Observable<boolean> {
-    return this.http.get<boolean>('/auth/check-login').pipe(
-      map((response) => response),
-      catchError(() => of(false))
-    );
-  }
+  // isLoggedIn(): Observable<boolean> {
+  //   return this.http.get<boolean>('/auth/check-login').pipe(
+  //     map((response) => response),
+  //     catchError(() => of(false))
+  //   );
+  // }
 }
 
 // isLoggedIn(): boolean {
