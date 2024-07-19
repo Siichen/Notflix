@@ -18,7 +18,6 @@ import { MoviedialogComponent } from './components/moviedetails/components/movie
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SharedModule } from '../../shared/shared.module';
 import { MovieItemResolver } from '../../core/resolvers/movie-item.resolver';
-import { LoginGuard } from '../../core/guards/login.guard';
 import { AuthService } from '../../services/auth/auth.service';
 // import { LoginGuard } from '../../core/guards/login.guard';
 
@@ -27,7 +26,7 @@ import { AuthService } from '../../services/auth/auth.service';
 //     path: '',
 //     component: MoviesComponent,
 //     children: [
-//       { path: '', component: MovielistComponent }, // 笨死，你写两个空的带不同组件不就撞了吗
+//       { path: '', component: MovielistComponent },
 //       { path: 'details/:id', component: MoviedetailsComponent },
 //     ],
 //   },
@@ -71,7 +70,6 @@ const routes: Routes = [
   ],
   providers: [
     AuthService,
-    MovieItemResolver,
     {
       provide: YOUTUBE_PLAYER_CONFIG,
       useValue: {

@@ -1,26 +1,20 @@
+import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import {
-  BehaviorSubject,
-  catchError,
-  Observable,
-  of,
-  tap,
-  throwError,
-} from 'rxjs';
 import {
   AppUserAuth,
   UserRole,
 } from '../../interfaces/User/user-auth.interface';
+import { AppUser } from '../../interfaces/User/user-login.interface';
+import { TmbdService } from '../tmbd/tmbd.service';
 import {
   AppUserRegister,
   UserInfo,
 } from '../../interfaces/User/user-signup.interface';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { TmbdService } from '../tmbd/tmbd.service';
 import { AUTHSERVER } from '../../core/core.module';
-import { AppUser } from '../../interfaces/User/user-login.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -116,7 +110,6 @@ export class WithLocalstorageService {
 
   /* upgrade Uer Permission */
   upgradePermission(userRole: { role: UserRole }) {
-    console.log('Change permission class to: ', userRole.role);
     this.stopRefreshTokenTimer();
 
     return this.http

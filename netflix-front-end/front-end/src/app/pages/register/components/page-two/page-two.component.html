@@ -16,41 +16,126 @@
       <mat-icon>done</mat-icon>
       Change or cancel your plan anytime.
     </section>
-    <section class="plan_table">
-      <table class="mat-elevation-z8 demo-table horizontal-table">
-        <!-- Header Row -->
-        <tr>
-          <th></th>
-          <th *ngFor="let plan of plans">{{ plan.Plan }}</th>
-        </tr>
-        <!-- Monthly Price Row -->
-        <tr>
-          <td>Monthly Price</td>
-          <td *ngFor="let plan of plans">{{ plan.MonthlyPrice }}</td>
-        </tr>
-        <hr />
-        <!-- Video Quality Row -->
-        <tr>
-          <td>Video Quality</td>
-          <td *ngFor="let plan of plans">{{ plan.VideoQuality }}</td>
-        </tr>
-        <!-- Resolution Row -->
-        <tr>
-          <td>Resolution</td>
-          <td *ngFor="let plan of plans">{{ plan.Resolution }}</td>
-        </tr>
-        <hr />
-        <!-- Gougou Row -->
-        <tr>
-          <td>Watch on your TV, computer, mobile phone and table:</td>
-          <td *ngFor="let i of [1, 2, 3]"><mat-icon>done</mat-icon></td>
-        </tr>
-      </table>
-      <div routerLink="/movies">
-        <button>Next</button>
+
+    <!-- --------------------------------------------------- -->
+    <div class="plan_table">
+      <div class="plan_icon">
+        <div class="description"></div>
+        <div [ngClass]="{ val_container: true }" (click)="selectPlan('USER')">
+          <div
+            [ngClass]="{ plan: true, plan_selected: selecedColumn === 'USER' }"
+          >
+            @if (selecedColumn === "USER") {
+            <div [ngClass]="{ arrow: true }"></div>
+            } Basic
+          </div>
+        </div>
+        <div
+          [ngClass]="{ val_container: true }"
+          (click)="selectPlan('SUPERUSER')"
+        >
+          <div
+            [ngClass]="{
+              plan: true,
+              plan_selected: selecedColumn === 'SUPERUSER'
+            }"
+          >
+            @if (selecedColumn === "SUPERUSER") {
+            <div [ngClass]="{ arrow: true }"></div>
+            } Standard
+          </div>
+        </div>
+        <div [ngClass]="{ val_container: true }" (click)="selectPlan('ADMIN')">
+          <div
+            [ngClass]="{ plan: true, plan_selected: selecedColumn === 'ADMIN' }"
+          >
+            @if (selecedColumn === "ADMIN") {
+            <div [ngClass]="{ arrow: true }"></div>
+            } Premium
+          </div>
+        </div>
       </div>
-      <!-- <button [routerLink]="['movies']">Next</button> -->
-    </section>
+      <div class="m_price border_bt row">
+        <div class="description">Monthly price</div>
+        <div [ngClass]="{ val_container: true, red: selecedColumn === 'USER' }">
+          {{ plans.Basic.MonthlyPrice | currency }}
+        </div>
+        <div
+          [ngClass]="{
+            val_container: true,
+            red: selecedColumn === 'SUPERUSER'
+          }"
+        >
+          {{ plans.Standard.MonthlyPrice | currency }}
+        </div>
+        <div
+          [ngClass]="{ val_container: true, red: selecedColumn === 'ADMIN' }"
+        >
+          {{ plans.Premium.MonthlyPrice | currency }}
+        </div>
+      </div>
+      <div class="v_quality border_bt row">
+        <div class="description">Video quality</div>
+        <div [ngClass]="{ val_container: true, red: selecedColumn === 'USER' }">
+          {{ plans.Basic.VideoQuality }}
+        </div>
+        <div
+          [ngClass]="{
+            val_container: true,
+            red: selecedColumn === 'SUPERUSER'
+          }"
+        >
+          {{ plans.Standard.VideoQuality }}
+        </div>
+        <div
+          [ngClass]="{ val_container: true, red: selecedColumn === 'ADMIN' }"
+        >
+          {{ plans.Premium.VideoQuality }}
+        </div>
+      </div>
+      <div class="resolution border_bt row">
+        <div class="description">Resolution</div>
+        <div [ngClass]="{ val_container: true, red: selecedColumn === 'USER' }">
+          {{ plans.Basic.Resolution }}
+        </div>
+        <div
+          [ngClass]="{
+            val_container: true,
+            red: selecedColumn === 'SUPERUSER'
+          }"
+        >
+          {{ plans.Standard.Resolution }}
+        </div>
+        <div
+          [ngClass]="{ val_container: true, red: selecedColumn === 'ADMIN' }"
+        >
+          {{ plans.Premium.Resolution }}
+        </div>
+      </div>
+      <div class="device row">
+        <div class="description">
+          Watch on your TV, computer, mobile phone and tablet
+        </div>
+        <div [ngClass]="{ val_container: true, red: selecedColumn === 'USER' }">
+          <mat-icon>done</mat-icon>
+        </div>
+        <div
+          [ngClass]="{
+            val_container: true,
+            red: selecedColumn === 'SUPERUSER'
+          }"
+        >
+          <mat-icon>done</mat-icon>
+        </div>
+        <div
+          [ngClass]="{ val_container: true, red: selecedColumn === 'ADMIN' }"
+        >
+          <mat-icon>done</mat-icon>
+        </div>
+      </div>
+    </div>
+    <button mat-raised-button (click)="handleNavigate()">Next</button>
+    <!-- --------------------------------------------------- -->
   </div>
 </main>
 <app-main-footer></app-main-footer>

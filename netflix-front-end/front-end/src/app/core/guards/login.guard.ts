@@ -1,54 +1,19 @@
-import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
-import { map, Observable, take } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class LoginGuard implements CanActivate {
-  constructor(private auth: AuthService, private router: Router) {}
+export const loginFnGuard: CanActivateFn = (route, state) => {
+  const router = inject(Router);
+  const authService = inject(AuthService);
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.auth.isLoggedIn$.pipe(
-      take(1),
-      map((isLoggedIn) => {
-        if (isLoggedIn) {
-          console.log('Pass guard successfully.');
-          return true;
-        } else {
-          console.log('User not logged in, redirecting to login');
-          this.router.navigate(['/login']);
-          return false;
-        }
-      })
-    );
+  const { jwtToken } = authService.userSignal();
+  if (!jwtToken) {
+    return true;
+  } else {
+    router.navigate(['/']);
+    return false;
   }
-}
-
-//   constructor(private authService: AuthService, private router: Router) {}
-
-//   canActivate(): Observable<boolean> {
-//     return this.authService.user$.pipe(
-//       map((user) => {
-//         if (user) {
-//           return true;
-//         } else {
-//           this.router.navigate(['/login']);
-//           return false;
-//         }
-//       })
-//     );
-//   }
-// }
+};
 
 // @Injectable({
 //   providedIn: 'root',

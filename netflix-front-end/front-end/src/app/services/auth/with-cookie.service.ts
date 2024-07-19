@@ -1,38 +1,32 @@
-import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
-import { AppUserAuth } from '../../interfaces/User/user-auth.interface';
-import { AUTHSERVER } from '../../core/core.module';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AUTHSERVER } from '../../core/core.module';
+import { AppUserAuth } from '../../interfaces/User/user-auth.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WithCookieService {
-  // private refreshTokenTimeout!: ReturnType<typeof setTimeout>;
-
-  // private userSubject$!: BehaviorSubject<AppUserAuth>;
-  // user$!: Observable<AppUserAuth>;
   private refreshTokenTimeout!: ReturnType<typeof setTimeout>;
-  private userSubject$ = new BehaviorSubject<AppUserAuth | null>(null);
-  user$ = this.userSubject$.asObservable();
 
-  get userValue(): AppUserAuth | null {
+  private userSubject$!: BehaviorSubject<AppUserAuth>;
+  user$!: Observable<AppUserAuth>;
+
+  get userValue(): AppUserAuth {
     return this.userSubject$.value;
   }
+
   constructor(
     private readonly router: Router,
     private readonly http: HttpClient,
     @Inject(AUTHSERVER) private readonly authServerPath: string
-  ) {}
-  // constructor(
-  //   private readonly router: Router,
-  //   private readonly http: HttpClient,
-  //   @Inject(AUTHSERVER) private readonly authServerPath: string
-  // ) {
-  //   this.userSubject$ = new BehaviorSubject<AppUserAuth>({});
-  //   this.user$ = this.userSubject$.asObservable();
-  // }
+  ) {
+    this.userSubject$ = new BehaviorSubject<AppUserAuth>({});
+    this.user$ = this.userSubject$.asObservable();
+  }
 
   login(username: string, password: string) {
     return this.http

@@ -1,65 +1,110 @@
-app-main-header {
-  top: 0;
-}
-
+@import "../../../../../style.varaible.scss";
 .main_container {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: fit-content;
+  width: 100vw;
+  height: calc(100vh - $reuse_80);
+  margin-top: 120px;
+  @include flex(center, stretch);
 
   .container {
-    padding-bottom: 20px;
+    padding-bottom: $reuse_60;
+    width: 68.75rem;
+    @include flex(flex-start, center, column);
+
+    .icon_check_circle {
+      mat-icon {
+        color: red;
+        font-size: 4rem;
+        transform: translate(-22px, 0);
+      }
+    }
+    .step,
+    .p_1,
+    .p_2,
+    .p_3,
+    .p_4 {
+      width: 100%;
+      margin-top: 2px;
+      mat-icon {
+        color: red;
+        margin-right: 3px;
+        transform: translate(0, 5px);
+      }
+    }
+
+    .p_1 {
+      font-size: 2rem;
+      line-height: 2.5rem;
+    }
+    .p_2,
+    .p_3,
+    .p_4 {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+    .plan_table {
+      width: 100%;
+      @include flex(flex-start, stretch, column);
+      .plan_icon {
+        // background-color: antiquewhite;
+        height: 9.4rem;
+        width: 100%;
+        display: flex;
+        .plan {
+          background-color: rgb(212, 106, 106);
+          height: 90%;
+          width: 100%;
+          padding: 25px;
+          font-size: 1.2rem;
+          color: white;
+          position: relative;
+          @include flex();
+
+          .arrow {
+            height: 30%;
+            width: 20%;
+            background-color: red;
+            position: absolute;
+            bottom: -10%;
+            transform: rotate(45deg);
+            z-index: -1;
+          }
+        }
+        .plan_selected {
+          background-color: red;
+        }
+      }
+      .row {
+        height: $reuse_60;
+        line-height: 1.875rem;
+        display: flex;
+        width: 100%;
+      }
+      .description {
+        height: 100%;
+        padding: 15px;
+        width: $reuse_500;
+      }
+      .val_container {
+        height: 100%;
+        padding: 15px 1.875rem;
+        width: $reuse_200;
+        color: black;
+        @include flex();
+      }
+      .red {
+        color: red;
+      }
+      .border_bt {
+        border-bottom: 1px solid black;
+      }
+    }
+    button {
+      margin-top: 1.875rem;
+      background-color: red;
+      color: white;
+      font-size: 1.5rem;
+      width: $reuse_300;
+      height: $reuse_60;
+    }
   }
-}
-
-.step,
-.p_1,
-.p_2,
-.p_3,
-.p_4 {
-  width: 100%;
-  margin-top: 2px;
-  mat-icon {
-    color: red;
-    margin-right: 3px;
-    transform: translate(0, 5px);
-  }
-}
-
-.p_1 {
-  font-size: 2rem;
-  line-height: 2.5rem;
-}
-.p_2,
-.p_3,
-.p_4 {
-  font-size: 1rem;
-  line-height: 1.5rem;
-}
-
-.plan_table {
-  border-radius: 0%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10%;
-}
-
-button {
-  margin-top: 20px;
-  background-color: red;
-  color: white;
-  font-size: 1.5rem;
-  width: 100%;
-  text-align: center;
-  line-height: 2.5rem;
-  height: 2.5rem;
-  border: none;
-}
-button {
-  background-color: rgb(219, 46, 46);
 }

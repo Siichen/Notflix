@@ -217,7 +217,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 import {
@@ -231,14 +231,16 @@ import {
   AppUserRegister,
   UserInfo,
 } from '../../interfaces/User/user-signup.interface';
-import { AuthDto } from '../../interfaces/User/user-signup.interface';
+
 import { AUTHSERVER } from '../../core/core.module';
 import { isPlatformBrowser } from '@angular/common';
+import { AuthDto } from '../../interfaces/User/authDto.interface';
 
 @Injectable()
 export class AuthService {
   private jwtHelper = new JwtHelperService();
   userSignal = signal<AppUserAuth>({});
+  loading$ = new BehaviorSubject<boolean>(false);
 
   private appUserRegister = new AppUserRegister();
   private refreshTokenTimeout!: ReturnType<typeof setTimeout>;
@@ -266,9 +268,11 @@ export class AuthService {
       .pipe(
         tap(({ accessToken, role }: AuthDto) => {
           this.setUserValueByToken({ accessToken, role });
+          this.loading$.next(false);
           this.router.navigate(['/movies']);
         }),
         catchError((error) => {
+          this.loading$.next(false);
           return throwError('SomeThing Wrong during sign in!', error);
         })
       );
@@ -293,6 +297,7 @@ export class AuthService {
     };
   }
   signup(userRole: { role: UserRole }): Observable<AuthDto | string> {
+    this.loading$.next(true);
     this.appUserRegister = {
       ...this.appUserRegister,
       ...userRole,
@@ -309,9 +314,11 @@ export class AuthService {
       .pipe(
         tap(({ accessToken, role }: AuthDto) => {
           this.setUserValueByToken({ accessToken, role });
+          this.loading$.next(false);
           this.router.navigate(['/movies']);
         }),
         catchError((error) => {
+          this.loading$.next(false);
           return throwError('SomeThing Wrong during sign up!', error);
         })
       );
@@ -329,9 +336,11 @@ export class AuthService {
       .pipe(
         tap(({ accessToken, role }: AuthDto) => {
           this.setUserValueByToken({ accessToken, role });
+          this.loading$.next(true);
           this.router.navigate(['/movies']);
         }),
         catchError((error) => {
+          this.loading$.next(false);
           return throwError('SomeThing Wrong during sign up!', error);
         })
       );
