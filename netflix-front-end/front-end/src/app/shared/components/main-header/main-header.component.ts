@@ -19,7 +19,7 @@ export class MainHeaderComponent implements OnInit {
 
   //   ngOnInit(): void {
   //     const currentUser = this.authService.userSubject.getValue();
-  //     console.log('Current User:', currentUser);
+  //     console.log('Current User:', currentUser); //null
   //     if (currentUser && currentUser.jwtToken && currentUser.username) {
   //       this.isLogin = true;
   //       this.username = currentUser.username;
