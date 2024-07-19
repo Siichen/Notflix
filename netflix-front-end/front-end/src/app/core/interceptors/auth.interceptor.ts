@@ -8,7 +8,7 @@ import {
 import { Inject, inject, Injectable } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { AUTHSERVER } from '../../core/core.module';
-import { Observable, switchMap, take } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -17,61 +17,61 @@ export class AuthInterceptor implements HttpInterceptor {
     @Inject(AUTHSERVER) private authServerPath: string
   ) {}
 
-  // export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  //   const auth = inject(AuthService);
-  //   const authServerPath = inject(AUTHSERVER);
-
-  //   const user = auth.userSubject.value;
-
-  //   const isLoggedIn = user && user.jwtToken;
-  //   const isApiUrl = req.url.startsWith(authServerPath);
-
-  //   if (isLoggedIn && isApiUrl) {
-  //     console.log('Adding Authorization header');
-  //     req = req.clone({
-  //       setHeaders: { Authorization: `Bearer ${user.jwtToken}` },
-  //     });
-  //   }
-
-  //   return next(req);
-  // };
-
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     console.log('AuthInterceptor called');
 
-    return this.authService.isLoggedIn$.pipe(
-      take(1),
-      switchMap((isLoggedIn) => {
-        console.log('Is user logged in:', isLoggedIn);
+    const currentUser = this.authService.userSubject.value;
+    if (currentUser && currentUser.jwtToken) {
+      console.log('User in interceptor:', currentUser.username);
+      console.log('Is user logged in:', true);
+      console.log('Adding Authorization header');
 
-        const user = this.authService.userSubject.getValue();
-        const isApiUrl = req.url.startsWith(this.authService.authServerPath);
+      // Clone the request and set the new header in one step
+      const clonedReq = req.clone({
+        setHeaders: { Authorization: `Bearer ${currentUser.jwtToken}` },
+      });
 
-        // console.log('User in interceptor:', user);
+      console.log(
+        'Authorization header added:',
+        clonedReq.headers.get('Authorization')
+      );
 
-        if (isLoggedIn && isApiUrl && user?.jwtToken) {
-          console.log('Adding Authorization header');
-          req = req.clone({
-            setHeaders: { Authorization: `Bearer ${user.jwtToken}` },
-          });
-          console.log(
-            'Authorization header added:',
-            req.headers.get('Authorization')
-          );
-        } else {
-          // console.log(
-          //   'Authorization header not added. isApiUrl:',
-          //   isApiUrl,
-          //   'user.jwtToken:',
-          //   user?.jwtToken
-          // );
-        }
+      return next.handle(clonedReq);
+    } else {
+      console.log('User does not exist.');
+    }
 
-        return next.handle(req);
-      })
-    );
+    // If no user is logged in, just pass the original request
+    return next.handle(req);
   }
 }
+//       }
+//         const isLoggedIn = !!user;
+//         const isApiUrl = req.url.startsWith(this.authService.authServerPath);
+
+//         if (isLoggedIn && isApiUrl && user?.jwtToken) {
+//           console.log('Adding Authorization header');
+//           req = req.clone({
+//             setHeaders: { Authorization: `Bearer ${user.jwtToken}` },
+//           });
+//           console.log(
+//             'Authorization header added:',
+//             req.headers.get('Authorization')
+//           );
+//         } else {
+//           console.log(
+//             'Authorization header not added. isApiUrl:',
+//             isApiUrl,
+//             'user.jwtToken:',
+//             user?.jwtToken
+//           );
+//         }
+
+//         return next.handle(req);
+//       })
+//     );
+//   }
+// }

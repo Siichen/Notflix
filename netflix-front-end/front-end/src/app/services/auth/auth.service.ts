@@ -25,7 +25,6 @@ export class AuthService {
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   loading$ = new BehaviorSubject<boolean>(false);
   private refreshTokenTimeout!: ReturnType<typeof setTimeout>;
-
   private appUserRegister = new AppUserRegister();
 
   constructor(
@@ -34,11 +33,6 @@ export class AuthService {
     private readonly tmdbService: TmbdService,
     @Inject(AUTHSERVER) public readonly authServerPath: string
   ) {}
-
-  private getCurrentUserFromLocalStorage(): AppUserAuth | null {
-    const user = localStorage.getItem('currentUser');
-    return user ? JSON.parse(user) : null;
-  }
 
   login(appUser: AppUser): Observable<Token> {
     return this.http
@@ -49,10 +43,11 @@ export class AuthService {
           // this.isLoggedIn = true;
           this.isLoggedInSubject.next(true);
           this.router.navigate(['/movies']);
-          console.log('User logged in:', this.userSubject.value); // getvalue()????
+          console.log('User logged in:', this.userSubject.getValue());
         }),
         catchError((error) => {
           if (error.status === 401) {
+            this.isLoggedInSubject.next(false);
             return throwError(() => new Error('Invalid credentials'));
           }
           return throwError(
@@ -112,7 +107,7 @@ export class AuthService {
     }
     const { id, username, email, tmdb_key, exp } = decodedToken;
 
-    const user = {
+    const user: AppUserAuth = {
       id,
       username,
       email,

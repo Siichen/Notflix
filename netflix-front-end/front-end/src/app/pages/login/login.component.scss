@@ -38,7 +38,7 @@
 
 .clear {
   height: 75vh;
-  width: 25.8vw;
+  width: 395px;
   background-image: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.9),
@@ -133,4 +133,8 @@
 
 mat-hint {
   color: aliceblue;
+}
+
+.login_error {
+  color: whitesmoke;
 }
