@@ -48,30 +48,3 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(req);
   }
 }
-//       }
-//         const isLoggedIn = !!user;
-//         const isApiUrl = req.url.startsWith(this.authService.authServerPath);
-
-//         if (isLoggedIn && isApiUrl && user?.jwtToken) {
-//           console.log('Adding Authorization header');
-//           req = req.clone({
-//             setHeaders: { Authorization: `Bearer ${user.jwtToken}` },
-//           });
-//           console.log(
-//             'Authorization header added:',
-//             req.headers.get('Authorization')
-//           );
-//         } else {
-//           console.log(
-//             'Authorization header not added. isApiUrl:',
-//             isApiUrl,
-//             'user.jwtToken:',
-//             user?.jwtToken
-//           );
-//         }
-
-//         return next.handle(req);
-//       })
-//     );
-//   }
-// }
