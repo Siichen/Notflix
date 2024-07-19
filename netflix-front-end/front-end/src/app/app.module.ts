@@ -9,9 +9,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
-import { authInterceptor } from './core/interceptors/auth.interceptor';
-import { loginFnGuard } from './core/guards/login.guard';
-import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,15 +22,7 @@ import { AuthService } from './services/auth/auth.service';
     BrowserAnimationsModule,
     CoreModule.forRoot(),
   ],
-  providers: [
-    JwtHelperService,
-    TmbdService,
-    {
-      provide: 'CanActivateFn',
-      useValue: loginFnGuard,
-    },
-    CoreModule,
-  ],
+  providers: [JwtHelperService, TmbdService, CoreModule],
 
   bootstrap: [AppComponent],
 })

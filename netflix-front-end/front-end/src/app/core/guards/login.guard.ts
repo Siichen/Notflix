@@ -1,36 +1,28 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { inject, Injectable } from '@angular/core';
+import { CanActivate, CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
+import { catchError, map, Observable, of } from 'rxjs';
 
-export const loginFnGuard: CanActivateFn = (route, state) => {
-  const router = inject(Router);
-  const authService = inject(AuthService);
-
-  const { jwtToken } = authService.userSignal();
-  if (!jwtToken) {
-    return true;
-  } else {
-    router.navigate(['/']);
-    return false;
+@Injectable({
+  providedIn: 'root',
+})
+export class LoginGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
+  canActivate(): Observable<boolean> | boolean {
+    return this.authService.isUserLoggedIn().pipe(
+      map((isLoggedIn) => {
+        if (isLoggedIn) {
+          return true;
+        } else {
+          this.router.navigate(['/login']);
+          return false;
+        }
+      }),
+      catchError((error) => {
+        console.error('LoginGuard - Error checking login status', error);
+        this.router.navigate(['/login']);
+        return of(false);
+      })
+    );
   }
-};
-
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class LoginGuard implements CanActivate {
-//   constructor(private authService: AuthService, private router: Router) {}
-
-//   canActivate(): Promise<boolean> {
-//     return this.authService.isUserLoggedIn().then((isLoggedIn) => {
-//       console.log('LoginGuard - current user logged in:', isLoggedIn); // Check the current user login status
-//       if (isLoggedIn) {
-//         return true;
-//       } else {
-//         console.log('User not logged in, redirecting to login');
-//         this.router.navigate(['/login']);
-//         return false;
-//       }
-//     });
-//   }
-// }
+}

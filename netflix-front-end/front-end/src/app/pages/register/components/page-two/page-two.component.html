@@ -25,9 +25,11 @@
           <div
             [ngClass]="{ plan: true, plan_selected: selecedColumn === 'USER' }"
           >
-            @if (selecedColumn === "USER") {
-            <div [ngClass]="{ arrow: true }"></div>
-            } Basic
+            <div
+              *ngIf="selecedColumn === 'USER'"
+              [ngClass]="{ arrow: true }"
+            ></div>
+            Basic
           </div>
         </div>
         <div
@@ -40,18 +42,22 @@
               plan_selected: selecedColumn === 'SUPERUSER'
             }"
           >
-            @if (selecedColumn === "SUPERUSER") {
-            <div [ngClass]="{ arrow: true }"></div>
-            } Standard
+            <div
+              *ngIf="selecedColumn === 'SUPERUSER'"
+              [ngClass]="{ arrow: true }"
+            ></div>
+            Standard
           </div>
         </div>
         <div [ngClass]="{ val_container: true }" (click)="selectPlan('ADMIN')">
           <div
             [ngClass]="{ plan: true, plan_selected: selecedColumn === 'ADMIN' }"
           >
-            @if (selecedColumn === "ADMIN") {
-            <div [ngClass]="{ arrow: true }"></div>
-            } Premium
+            <div
+              *ngIf="selecedColumn === 'ADMIN'"
+              [ngClass]="{ arrow: true }"
+            ></div>
+            Premium
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { loginFnGuard } from './core/guards/login.guard';
+import { LoginGuard } from './core/guards/login.guard';
 
 // export const routes: Routes = [
 //   { path: '', component: HomeComponent }, // 这是一个Route
@@ -32,7 +32,7 @@ const routes: Routes = [
     path: 'movies',
     loadChildren: () =>
       import('./pages/movies/movies.module').then((m) => m.MoviesModule),
-    canActivate: [loginFnGuard],
+    canActivate: [LoginGuard],
   },
   // {
   //   path: '**',
