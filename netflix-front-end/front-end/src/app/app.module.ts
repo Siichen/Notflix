@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { LoginGuard } from './core/guards/login.guard';
-// import { LoginGuard } from './core/guards/login.guard';
+import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +28,7 @@ import { LoginGuard } from './core/guards/login.guard';
     BrowserAnimationsModule,
     CoreModule.forRoot(),
   ],
-  providers: [JwtHelperService, TmbdService, LoginGuard],
+  providers: [JwtHelperService, TmbdService, LoginGuard, CoreModule],
 
   bootstrap: [AppComponent],
 })

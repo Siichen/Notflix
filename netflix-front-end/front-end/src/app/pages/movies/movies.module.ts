@@ -19,6 +19,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SharedModule } from '../../shared/shared.module';
 import { MovieItemResolver } from '../../core/resolvers/movie-item.resolver';
 import { LoginGuard } from '../../core/guards/login.guard';
+import { AuthService } from '../../services/auth/auth.service';
 // import { LoginGuard } from '../../core/guards/login.guard';
 
 // const routes: Routes = [
@@ -69,6 +70,7 @@ const routes: Routes = [
     SharedModule,
   ],
   providers: [
+    AuthService,
     MovieItemResolver,
     {
       provide: YOUTUBE_PLAYER_CONFIG,

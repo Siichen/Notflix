@@ -9,23 +9,30 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class WithCookieService {
+  // private refreshTokenTimeout!: ReturnType<typeof setTimeout>;
+
+  // private userSubject$!: BehaviorSubject<AppUserAuth>;
+  // user$!: Observable<AppUserAuth>;
   private refreshTokenTimeout!: ReturnType<typeof setTimeout>;
+  private userSubject$ = new BehaviorSubject<AppUserAuth | null>(null);
+  user$ = this.userSubject$.asObservable();
 
-  private userSubject$!: BehaviorSubject<AppUserAuth>;
-  user$!: Observable<AppUserAuth>;
-
-  get userValue(): AppUserAuth {
+  get userValue(): AppUserAuth | null {
     return this.userSubject$.value;
   }
-
   constructor(
     private readonly router: Router,
     private readonly http: HttpClient,
     @Inject(AUTHSERVER) private readonly authServerPath: string
-  ) {
-    this.userSubject$ = new BehaviorSubject<AppUserAuth>({});
-    this.user$ = this.userSubject$.asObservable();
-  }
+  ) {}
+  // constructor(
+  //   private readonly router: Router,
+  //   private readonly http: HttpClient,
+  //   @Inject(AUTHSERVER) private readonly authServerPath: string
+  // ) {
+  //   this.userSubject$ = new BehaviorSubject<AppUserAuth>({});
+  //   this.user$ = this.userSubject$.asObservable();
+  // }
 
   login(username: string, password: string) {
     return this.http

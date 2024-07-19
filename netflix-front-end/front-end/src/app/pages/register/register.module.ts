@@ -10,6 +10,7 @@ import { PageOneComponent } from './components/page-one/page-one.component';
 import { PageTwoComponent } from './components/page-two/page-two.component';
 import { RegisterComponent } from './register.component';
 import { SharedModule } from '../../shared/shared.module';
+import { AuthService } from '../../services/auth/auth.service';
 
 // option 2
 const routes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
   ],
+  providers: [AuthService],
 })
 export class RegisterModule {}
 

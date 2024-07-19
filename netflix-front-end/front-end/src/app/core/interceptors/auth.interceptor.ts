@@ -1,50 +1,47 @@
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpInterceptorFn,
-  HttpRequest,
-} from '@angular/common/http';
-import { Inject, inject, Injectable } from '@angular/core';
+import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { AUTHSERVER } from '../../core/core.module';
-import { Observable } from 'rxjs';
 
-@Injectable()
-export class AuthInterceptor implements HttpInterceptor {
-  constructor(
-    private authService: AuthService,
-    @Inject(AUTHSERVER) private authServerPath: string
-  ) {}
+// @Injectable()
+// export class AuthInterceptor implements HttpInterceptor {
+//   constructor(private authService: AuthService) {}
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    console.log('AuthInterceptor called');
+//   intercept(
+//     req: HttpRequest<any>,
+//     next: HttpHandler
+//   ): Observable<HttpEvent<any>> {
+//     const currentUser = this.authService.userSubject.value;
+//     console.log('Interceptor triggered.');
+//     console.log('Current User in AuthService:', currentUser);
 
-    const currentUser = this.authService.userSubject.value;
-    if (currentUser && currentUser.jwtToken) {
-      console.log('User in interceptor:', currentUser.username);
-      console.log('Is user logged in:', true);
-      console.log('Adding Authorization header');
+//     if (currentUser && currentUser.jwtToken) {
+//       // Clone the request and add the Authorization header
+//       const clonedRequest = req.clone({
+//         setHeaders: {
+//           Authorization: `Bearer ${currentUser.jwtToken}`,
+//         },
+//       });
+//       console.log('Modified request with Authorization header:', clonedRequest);
+//       // Pass the cloned request to the next handler
+//       return next.handle(clonedRequest);
+//     }
+//     // If there's no token, just pass the request along without modification
+//     return next.handle(req);
+//   }
+// }
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const authService = inject(AuthService);
+  const authServerPath = inject(AUTHSERVER);
 
-      // Clone the request and set the new header in one step
-      const clonedReq = req.clone({
-        setHeaders: { Authorization: `Bearer ${currentUser.jwtToken}` },
-      });
+  const user = authService.userSignal();
+  const isApiUrl = req.url.startsWith(`${authServerPath}/auth/sign`);
 
-      console.log(
-        'Authorization header added:',
-        clonedReq.headers.get('Authorization')
-      );
-
-      return next.handle(clonedReq);
-    } else {
-      console.log('User does not exist.');
-    }
-
-    // If no user is logged in, just pass the original request
-    return next.handle(req);
+  if (user && user.jwtToken && !isApiUrl) {
+    req = req.clone({
+      setHeaders: { Authorization: user.jwtToken },
+    });
   }
-}
+
+  return next(req);
+};

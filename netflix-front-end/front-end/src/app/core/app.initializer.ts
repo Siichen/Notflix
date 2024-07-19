@@ -1,37 +1,26 @@
 import { AuthService } from '../services/auth/auth.service';
 
-// export function appInitializer(authService: AuthService) {
-//   return () =>
-//     new Promise((resolve) => {
+// export const appInitializer = (authService: AuthService) => {
+//   return () => {
+//     return new Promise<void>((resolve) => {
 //       console.log('App Initialization started');
 //       authService.refreshToken().subscribe({
 //         next: () => {
-//           resolve(true);
-//         },
-//         error: (error) => {
-//           console.error('Error during app initialization:', error);
-//           resolve(true);
+//           authService.isLoggedInSubject.next(true);
+//           resolve();
 //         },
 //       });
 //     });
-// }
-
-export function appInitializer(authService: AuthService) {
-  return () =>
-    new Promise((resolve) => {
-      console.log('App Initialization started');
-      authService.refreshToken().subscribe({
-        next: () => {
-          authService.isLoggedInSubject.next(true);
-          resolve(true);
-        },
-        error: (error) => {
-          console.error('Error during app initialization:', error);
-          resolve(true);
-        },
-      });
-    });
-}
-
+//   };
+// };
 // new Promise((resolve) => {authService.refreshToken().subscribe().add(resolve);})
 // executed before initialization
+
+export const appInitializer = (authService: AuthService) => {
+  console.log('this is Initialization');
+  return () =>
+    new Promise((resolve) => {
+      // attempt to refresh token on app start up to auto authenticate
+      authService.refreshToken().subscribe().add(resolve);
+    });
+};

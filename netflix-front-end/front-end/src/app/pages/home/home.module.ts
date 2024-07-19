@@ -6,6 +6,7 @@ import { HomeRowOneComponent } from './components/home-row-one/home-row-one.comp
 import { HomeRowTwoComponent } from './components/home-row-two/home-row-two.component';
 import { HomeRowThreeComponent } from './components/home-row-three/home-row-three.component';
 import { SharedModule } from '../../shared/shared.module';
+import { AuthService } from '../../services/auth/auth.service';
 
 const routes: Routes = [
   {
@@ -28,5 +29,6 @@ const routes: Routes = [
   ],
   imports: [CommonModule, RouterModule.forChild(routes), SharedModule],
   exports: [RouterModule],
+  providers: [AuthService],
 })
 export class HomeModule {}

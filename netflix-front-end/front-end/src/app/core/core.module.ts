@@ -1,32 +1,27 @@
-import {
-  APP_INITIALIZER,
-  InjectionToken,
-  ModuleWithProviders,
-  NgModule,
-} from '@angular/core';
-import { Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { TmbdService } from '../services/tmbd/tmbd.service';
 import { WithCookieService } from '../services/auth/with-cookie.service';
 import { AuthService } from '../services/auth/auth.service';
 
 import { appInitializer } from './app.initializer';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { CommonModule } from '@angular/common';
+import {
+  APP_INITIALIZER,
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule,
+} from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 //* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ injection token
-export const TMDBAPIKEY = new InjectionToken<string>('TMDBAPIKEY');
-export const AUTHSERVER = new InjectionToken<string>('AUTHSERVER');
-export const ProdTitle = new InjectionToken<string>('ProdTitle');
-const USECOOKIE = new InjectionToken<boolean>('USECOOKIE');
+export const TMDBAPIKEY = new InjectionToken<string>('');
+export const AUTHSERVER = new InjectionToken<string>('');
+export const ProdTitle = new InjectionToken<string>('');
 
-@NgModule({
-  declarations: [],
-  exports: [],
-  imports: [CommonModule],
-})
+const USECOOKIE = new InjectionToken<string>('');
+
+@NgModule({})
 export class CoreModule {
   public static forRoot(): ModuleWithProviders<CoreModule> {
     return {
@@ -35,7 +30,7 @@ export class CoreModule {
         //* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Reuse values
         {
           provide: AUTHSERVER,
-          useValue: 'http://localhost:4231',
+          useValue: 'http://localhost:5566/api/v1',
         },
         {
           provide: ProdTitle,
@@ -61,16 +56,13 @@ export class CoreModule {
           },
           deps: [USECOOKIE, Router, HttpClient, TmbdService, AUTHSERVER],
         },
-        //* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Angular initializer
+        //* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Angular initializer;
         {
           provide: APP_INITIALIZER,
           useFactory: appInitializer,
           multi: true,
           deps: [AuthService],
         },
-        //* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Interceptors
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-
         //* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Title control
         Title,
       ],
