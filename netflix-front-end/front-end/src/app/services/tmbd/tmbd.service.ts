@@ -27,6 +27,7 @@ export class TmbdService {
   private readonly _baseUrl: string = `${this.authServerPath}`;
   private readonly imageURL: string = 'https://image.tmdb.org/t/p/w500';
 
+  // -------------------------------------------------------------
   // 1. get movie item
   getMovies(page: number): Observable<Card[]> {
     return this.http
@@ -50,7 +51,7 @@ export class TmbdService {
         })
       );
   }
-
+  // -------------------------------------------------------------
   // 2. More details > Movie item
   getDetails(movie_id: number): Observable<DetailsCard> {
     return this.http.get<Details>(`${this._baseUrl}/movie/${movie_id}`).pipe(
@@ -78,13 +79,13 @@ export class TmbdService {
       })
     );
   }
-
+  // -------------------------------------------------------------
   // 3. Youtube trailers > More details
   getVideos(movie_id: number): Observable<any> {
     return this.http.get<any>(`${this._baseUrl}/movie/${movie_id}/videos`);
   }
 }
-
+// -------------------------------------------------------------
 // export class TmbdService {
 //   private readonly apiKey: string = 'a29be70620e3a67d99f5d9a42177561d';
 //   private readonly apiURL: string =

@@ -1,8 +1,6 @@
 import { Component, inject, model, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
-import { TmbdService } from '../../../services/tmbd/tmbd.service';
 import { map, Observable, Subscription, tap } from 'rxjs';
-import { AppUserAuth } from '../../../interfaces/User/user-auth.interface';
 
 @Component({
   selector: 'app-main-header',
@@ -10,11 +8,12 @@ import { AppUserAuth } from '../../../interfaces/User/user-auth.interface';
   styleUrls: ['./main-header.component.scss'],
 })
 export class MainHeaderComponent implements OnInit {
+  // store observable
   isLogin$!: Observable<boolean>;
   username$!: Observable<string | null>;
   // isLogin!: boolean;
   // username: string | null = null;
-  // private sbp!: Subscription;
+  // private sbp!: Subscription = new s;
   // private auth = inject(AuthService);
 
   constructor(private auth: AuthService) {}

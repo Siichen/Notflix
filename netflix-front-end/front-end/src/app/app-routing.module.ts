@@ -4,7 +4,7 @@ import { LoginGuard } from './core/guards/login.guard';
 import { ErrorComponent } from './shared/components/error/error.component';
 
 // export const routes: Routes = [
-//   { path: '', component: HomeComponent }, // 这是一个Route
+//   { path: '', component: HomeComponent }, // this is one route
 //   { path: 'login', component: LoginComponent },
 //   { path: 'movies', component: MoviesComponent },
 //   { path: 'register_1', component: PageOneComponent },

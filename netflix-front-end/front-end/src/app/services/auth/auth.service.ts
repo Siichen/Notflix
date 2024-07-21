@@ -15,9 +15,9 @@ import { UserRegister } from '../../interfaces/User/user-signup.interface';
 export class AuthService {
   // dependency injection
   constructor(
-    private readonly router: Router,
-    private readonly http: HttpClient,
-    private readonly tmdbService: TmbdService,
+    private router: Router,
+    private http: HttpClient,
+    private tmdbService: TmbdService,
     @Inject(AUTHSERVER) private readonly _baseUrl: string
   ) {}
 
@@ -36,6 +36,7 @@ export class AuthService {
   isLoggedIn$ = this.isLoggedInSubject$.asObservable();
   loading$ = new BehaviorSubject<boolean>(false);
 
+  // -------------------------------------------------------------
   // auth function
   // 1. signin
   login(userinfo: AppUser): Observable<any> {
@@ -53,14 +54,14 @@ export class AuthService {
             // pass it to the user
             this.users$.next(data);
             console.log('Updated users$ with data:', data);
-            // get login
+            // get login status
             this.isLoggedInSubject$.next(true);
           }
           return data;
         })
       );
   }
-
+  // -------------------------------------------------------------
   // 2. signup
   signup(userInfo: UserRegister): Observable<any> {
     return this.http
@@ -74,14 +75,14 @@ export class AuthService {
             localStorage.setItem('username', userInfo.email);
             // pass it to the user
             this.users$.next(data);
-            // get login
+            // get login status
             this.isLoggedInSubject$.next(true);
           }
           return data;
         })
       );
   }
-
+  // -------------------------------------------------------------
   // 3. signout
   logout() {
     localStorage.removeItem('access_token');
