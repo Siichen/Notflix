@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../../services/auth/auth.service';
-import { UserRole } from '../../../../interfaces/User/user-auth.interface';
 
 @Component({
   selector: 'app-page-two',

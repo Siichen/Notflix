@@ -46,7 +46,7 @@ export class RegisterModule {}
 // const routes: Routes = [
 //   {
 //     path: '',
-//     component: RegisterComponent, // 有这一行找registerhtml，没这一行找apphtml
+//     component: RegisterComponent,
 //     children: [
 //       { path: '', redirectTo: 'register1', pathMatch: 'full' },
 //       { path: 'register1', component: PageOneComponent },

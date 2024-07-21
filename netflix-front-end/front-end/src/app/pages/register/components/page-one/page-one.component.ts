@@ -4,21 +4,11 @@ import {
   AsyncValidatorFn,
   FormBuilder,
   FormGroup,
-  UntypedFormBuilder,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { RegisterService } from '../../../../services/validators/register.service';
-import {
-  catchError,
-  debounceTime,
-  map,
-  Observable,
-  of,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../../services/auth/auth.service';

@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./movieitem.component.scss'],
 })
 export class MovieitemComponent {
-  @Input() movie!: Card; 
+  @Input() movie!: Card;
   maxNum: number = 190;
 
   constructor(private router: Router) {}
@@ -18,11 +18,6 @@ export class MovieitemComponent {
       ? summary.substring(0, this.maxNum) + '...'
       : summary;
   }
-
-  // viewDetails(id: number): void {
-  //   this.router.navigate(['/movie/details', id]);
-  //   // this.router.navigate(['/movies/details', this.movie.movieId]);
-  // }
 
   viewDetails(id: number): void {
     console.log(`Navigating to movie details for ID: ${id}`);

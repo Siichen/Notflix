@@ -19,7 +19,6 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SharedModule } from '../../shared/shared.module';
 import { MovieItemResolver } from '../../core/resolvers/movie-item.resolver';
 import { AuthService } from '../../services/auth/auth.service';
-// import { LoginGuard } from '../../core/guards/login.guard';
 
 // const routes: Routes = [
 //   {

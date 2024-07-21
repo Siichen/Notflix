@@ -21,6 +21,7 @@ export class AuthService {
     @Inject(AUTHSERVER) private readonly _baseUrl: string
   ) {}
 
+  // data stream
   private users$ = new BehaviorSubject<loginDto | null>(null);
   user$ = this.users$.asObservable();
 
@@ -35,6 +36,7 @@ export class AuthService {
   isLoggedIn$ = this.isLoggedInSubject$.asObservable();
   loading$ = new BehaviorSubject<boolean>(false);
 
+  // auth function
   // 1. signin
   login(userinfo: AppUser): Observable<any> {
     console.log('Attempting login with userinfo:', userinfo);
@@ -80,7 +82,7 @@ export class AuthService {
       );
   }
 
-  /* log out */
+  // 3. signout
   logout() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('username');
