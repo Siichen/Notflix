@@ -1,7 +1,7 @@
 app-main-header {
   position: relative;
   z-index: 10;
-} // 靠后的元素会覆盖在前面的元素之上 数值越大，元素就越靠近视觉上的表面（越靠近用户）
+} // the larger the number, the closer it gets
 
 .details_container {
   //   background: linear-gradient(270deg, #5d02ff, #ed6f35);
@@ -110,4 +110,8 @@ app-main-header {
   justify-content: flex-start;
   flex-wrap: wrap;
   gap: 45px;
+}
+
+app-main-header {
+  margin-left: -7%;
 }

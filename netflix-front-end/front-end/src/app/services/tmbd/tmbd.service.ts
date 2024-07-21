@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map, tap } from 'rxjs';
 import {
@@ -10,27 +10,27 @@ import {
   DetailsCard,
   Details,
 } from '../../interfaces/Movie/detailsMovie.interace';
+import { AUTHSERVER } from '../../core/core.module';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TmbdService {
-  private readonly apiKey: string = 'a29be70620e3a67d99f5d9a42177561d';
-  private readonly apiURL: string =
-    'https://api.themoviedb.org/3/discover/movie';
-  private readonly detailURL: string = 'https://api.themoviedb.org/3/movie';
+  // dependency injection
+  constructor(
+    private readonly router: Router,
+    private readonly http: HttpClient,
+    @Inject(AUTHSERVER) public readonly authServerPath: string
+  ) {}
+
+  private readonly _baseUrl: string = `${this.authServerPath}`;
   private readonly imageURL: string = 'https://image.tmdb.org/t/p/w500';
-  private readonly videoURL: string = 'https://api.themoviedb.org/3/movie';
 
-  // private movies$ = new Subject<Card[]>();
-  // movielist$ = this.movies$.asObservable();
-
-  constructor(private http: HttpClient) {}
-
-  // Movie item
+  // 1. get movie item
   getMovies(page: number): Observable<Card[]> {
     return this.http
-      .get<ResData>(`${this.apiURL}?api_key=${this.apiKey}&page=${page}`)
+      .get<ResData>(`${this._baseUrl}/discover/movie?page=${page}`)
       .pipe(
         map(({ results }: ResData): Card[] =>
           results!.map((movie: Movie) => ({
@@ -50,10 +50,10 @@ export class TmbdService {
         })
       );
   }
-  // More details > Movie item
+
+  // 2. More details > Movie item
   getDetails(movie_id: number): Observable<DetailsCard> {
-    const detailsURL = `${this.detailURL}/${movie_id}?api_key=${this.apiKey}`;
-    return this.http.get<Details>(detailsURL).pipe(
+    return this.http.get<Details>(`${this._baseUrl}/movie/${movie_id}`).pipe(
       map(
         (detail: Details): DetailsCard => ({
           moviePoster: detail.poster_path
@@ -79,10 +79,21 @@ export class TmbdService {
     );
   }
 
-  // Youtube trailers > More details
-  getVideos(movie_id: number) {
-    return this.http.get(
-      `${this.videoURL}/${movie_id}/videos?api_key=${this.apiKey}`
-    );
+  // 3. Youtube trailers > More details
+  getVideos(movie_id: number): Observable<any> {
+    return this.http.get<any>(`${this._baseUrl}/movie/${movie_id}/videos`);
   }
 }
+
+// export class TmbdService {
+//   private readonly apiKey: string = 'a29be70620e3a67d99f5d9a42177561d';
+//   private readonly apiURL: string =
+//     'https://api.themoviedb.org/3/discover/movie';
+//   private readonly detailURL: string = 'https://api.themoviedb.org/3/movie';
+//   private readonly imageURL: string = 'https://image.tmdb.org/t/p/w500';
+//   private readonly videoURL: string = 'https://api.themoviedb.org/3/movie';
+
+//   // private movies$ = new Subject<Card[]>();
+//   // movielist$ = this.movies$.asObservable();
+
+//   constructor(private http: HttpClient) {}

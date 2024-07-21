@@ -8,34 +8,19 @@
         routerLink=""
       />
     </div>
+    <div class="login_container">
+      <div *ngIf="!(isLogin$ | async)">
+        <button class="btn" [routerLink]="['/login']">Sign In</button>
+      </div>
 
-    <!-- <button class="btn" *ngIf="!isLogin" [routerLink]="['/login']">
+      <div *ngIf="isLogin$ | async">
+        <span class="name_box">{{ username$ | async }}</span>
+        <button class="btn" (click)="signOut()">Sign Out</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- <button class="btn" *ngIf="!isLogin" [routerLink]="['/login']">
       Sign In
     </button>
     <button class="btn" *ngIf="isLogin" (click)="signOut()">Sign Out</button> -->
-
-    <div *ngIf="!isLogin; else loggedInTemplate">
-      <div class="login_container">
-        <button class="btn" [routerLink]="['/login']">Sign In</button>
-      </div>
-    </div>
-
-    <ng-template #loggedInTemplate>
-      <div class="logout_container">
-        <span>{{ username }}</span>
-        <button class="btn" (click)="signOut()">Sign Out</button>
-      </div>
-    </ng-template>
-    <!-- 
-    @if (!isLogin) {
-    <div class="login_container">
-      <button class="btn" [routerLink]="['/login']">Sign In</button>
-    </div>
-    } @else {
-    <div class="logout_container">
-      <span> {{ username }} </span>
-      <button class="btn" (click)="signOut()">Sign Out</button>
-    </div>
-    } -->
-  </div>
-</nav>

@@ -27,7 +27,7 @@
               >
               <span
                 [hidden]="!(regForm.controls['email'].errors?.['minlength'])"
-                >Min length is 10</span
+                >Min length is 5</span
               >
               <span *ngIf="regForm.controls['email']?.errors?.['emailExists']"
                 >This email is already registered</span
@@ -54,7 +54,7 @@
               >
               <span
                 [hidden]="!(regForm.controls['password'].errors?.['minlength'])"
-                >Min length is 10</span
+                >Min length is 1</span
               >
             </mat-hint>
           </mat-form-field>

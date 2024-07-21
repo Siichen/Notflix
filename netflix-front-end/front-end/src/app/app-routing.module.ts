@@ -32,7 +32,7 @@ const routes: Routes = [
     path: 'movies',
     loadChildren: () =>
       import('./pages/movies/movies.module').then((m) => m.MoviesModule),
-    canActivate: [LoginGuard],
+    // canActivate: [LoginGuard],
   },
   // {
   //   path: '**',

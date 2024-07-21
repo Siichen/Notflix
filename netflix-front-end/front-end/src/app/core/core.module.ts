@@ -1,24 +1,20 @@
-import { HttpClient } from '@angular/common/http';
-
-import { TmbdService } from '../services/tmbd/tmbd.service';
-import { WithCookieService } from '../services/auth/with-cookie.service';
-import { AuthService } from '../services/auth/auth.service';
-
-import { appInitializer } from './app.initializer';
 import {
-  APP_INITIALIZER,
-  InjectionToken,
-  ModuleWithProviders,
-  NgModule,
-} from '@angular/core';
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import { TmbdService } from '../services/tmbd/tmbd.service';
+import { AuthService } from '../services/auth/auth.service';
+import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 //* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ injection token
 export const TMDBAPIKEY = new InjectionToken<string>('');
 export const AUTHSERVER = new InjectionToken<string>('');
 export const ProdTitle = new InjectionToken<string>('');
-
 const USECOOKIE = new InjectionToken<string>('');
 
 @NgModule({})
@@ -27,6 +23,7 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [
+        provideHttpClient(withInterceptorsFromDi()),
         //* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Reuse values
         {
           provide: AUTHSERVER,
@@ -38,30 +35,15 @@ export class CoreModule {
         },
         //* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ AuthService selector
         {
-          provide: USECOOKIE,
-          useValue: false,
-        },
-        {
           provide: AuthService,
-          useFactory: (
-            usecookie: boolean,
-            router: Router,
-            http: HttpClient,
-            tmdbservice: TmbdService,
-            authpath: string
-          ) => {
-            return usecookie
-              ? new WithCookieService(router, http, authpath)
-              : new AuthService(router, http, tmdbservice, authpath);
-          },
-          deps: [USECOOKIE, Router, HttpClient, TmbdService, AUTHSERVER],
+          useClass: AuthService,
         },
-        //* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Angular initializer;
+
+        //* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Angular interceptor;
         {
-          provide: APP_INITIALIZER,
-          useFactory: appInitializer,
+          provide: HTTP_INTERCEPTORS,
+          useClass: AuthInterceptor,
           multi: true,
-          deps: [AuthService],
         },
         //* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Title control
         Title,

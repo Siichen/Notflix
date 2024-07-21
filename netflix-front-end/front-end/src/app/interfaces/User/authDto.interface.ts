@@ -1,6 +1,8 @@
 import { UserRole } from './user-auth.interface';
 
-export interface AuthDto {
+export interface loginDto {
   accessToken: string;
   role: UserRole;
+  username: string;
+  tmdb_key: string;
 }

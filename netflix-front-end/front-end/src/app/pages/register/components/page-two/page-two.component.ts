@@ -26,12 +26,10 @@ export class PageTwoComponent implements OnInit {
       Resolution: '4K + HDR',
     },
   };
-  selecedColumn: 'USER' | 'SUPERUSER' | 'ADMIN' = 'ADMIN';
+  selecedColumn: 'USER' | 'SUPERUSER' | 'ADMIN' = 'USER';
 
-  constructor(
-    private readonly router: Router,
-    private readonly authService: AuthService
-  ) {}
+  constructor(private readonly router: Router) {}
+
   ngOnInit(): void {}
 
   selectPlan(user: 'USER' | 'SUPERUSER' | 'ADMIN') {
@@ -39,24 +37,6 @@ export class PageTwoComponent implements OnInit {
   }
 
   handleNavigate() {
-    const currentUser = this.authService.userSubject.getValue();
-
-    if (currentUser && currentUser.jwtToken) {
-      this.authService
-        .upgradePermission({
-          role: UserRole[this.selecedColumn],
-        })
-        .subscribe(
-          () => {
-            this.router.navigate(['/movies']);
-          },
-          (error) => {
-            console.error('Error upgrading user permission: ', error);
-          }
-        );
-    } else {
-      console.error('No user or jwtToken found. Redirecting to login.');
-      this.router.navigate(['/login']);
-    }
+    this.router.navigate(['/movies']);
   }
 }

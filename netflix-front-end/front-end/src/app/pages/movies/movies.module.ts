@@ -36,11 +36,6 @@ const routes: Routes = [
   {
     path: '',
     component: MovielistComponent,
-
-    // children: [
-    //   // movies.component.html
-    //   { path: 'details/:id', component: MoviedetailsComponent },
-    // ],
   },
   {
     path: 'details/:id',

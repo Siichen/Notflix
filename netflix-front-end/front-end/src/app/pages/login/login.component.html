@@ -5,9 +5,6 @@
         <h2 class="sign_in_header">Sign In</h2>
         <!-- ------------------------------------------------------- -->
         <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
-          <div *ngIf="login_msg" class="login_error">
-            {{ login_msg.msg }}
-          </div>
           <p>
             <mat-form-field class="sign_in_input" appearance="fill">
               <mat-label for="email">Email or phone number</mat-label>

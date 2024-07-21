@@ -30,7 +30,7 @@ export class MoviedetailsComponent implements OnInit, OnDestroy {
     if (movieId) {
       this.sbp = this.tmbdService
         .getDetails(Number(movieId))
-        .subscribe((details: DetailsCard) => {
+        .subscribe((details: any) => {
           this.movie = details;
         });
     }

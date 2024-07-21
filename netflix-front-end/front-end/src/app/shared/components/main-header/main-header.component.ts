@@ -1,6 +1,8 @@
-import { Component, model, OnInit } from '@angular/core';
+import { Component, inject, model, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { TmbdService } from '../../../services/tmbd/tmbd.service';
+import { map, Observable, Subscription, tap } from 'rxjs';
+import { AppUserAuth } from '../../../interfaces/User/user-auth.interface';
 
 @Component({
   selector: 'app-main-header',
@@ -8,28 +10,26 @@ import { TmbdService } from '../../../services/tmbd/tmbd.service';
   styleUrls: ['./main-header.component.scss'],
 })
 export class MainHeaderComponent implements OnInit {
-  isLogin!: boolean;
-  username = '';
+  isLogin$!: Observable<boolean>;
+  username$!: Observable<string | null>;
+  // isLogin!: boolean;
+  // username: string | null = null;
+  // private sbp!: Subscription;
+  // private auth = inject(AuthService);
 
-  constructor(
-    private readonly authService: AuthService,
-    private readonly tmdbService: TmbdService
-  ) {}
+  constructor(private auth: AuthService) {}
 
   ngOnInit(): void {
-    const currentUser = this.authService.userSubject.getValue();
-    console.log('Current User:', currentUser);
-    if (currentUser && currentUser.jwtToken && currentUser.username) {
-      this.isLogin = true;
-      this.username = currentUser.username;
-    } else {
-      this.isLogin = false;
-    }
+    this.isLogin$ = this.auth.isLoggedIn$;
+    this.username$ = this.auth.username$;
+    // this.username = localStorage.getItem('username');
   }
 
   signOut() {
-    this.authService.logout();
-    this.isLogin = false;
-    this.username = '';
+    this.auth.logout();
   }
+
+  // ngOnDestroy(): void {
+  //   this.sbp.unsubscribe();
+  // }
 }

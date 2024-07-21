@@ -22,9 +22,8 @@ import {
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../../services/auth/auth.service';
-import { AuthDto } from '../../../../interfaces/User/authDto.interface';
-import { HttpClient } from '@angular/common/http';
-import { AUTHSERVER } from '../../../../core/core.module';
+
+import { UserRole } from '../../../../interfaces/User/user-auth.interface';
 
 @Component({
   selector: 'app-page-one',
@@ -48,7 +47,7 @@ export class PageOneComponent {
         [Validators.required, Validators.email, Validators.minLength(5)],
         [this.emailValidator()],
       ],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(1)]],
     });
   }
 
@@ -67,15 +66,18 @@ export class PageOneComponent {
       const formValue = this.regForm.value;
       const username = 'Sichen';
       const tmdb_key = 'abcdefjhijklmnopqrstuvwxyz';
+      const role = UserRole.ADMIN;
 
       const registrationData = {
         ...formValue,
         username,
         tmdb_key,
+        role,
       };
+
       console.log('Form is valid, submitting:', registrationData);
       this.authService.signup(registrationData).subscribe(
-        (response) => {
+        (response: any) => {
           console.log('User registered successfully', response);
           if (response.accessToken) {
             this.router.navigate(['register2'], { relativeTo: this.route });

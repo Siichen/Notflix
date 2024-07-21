@@ -1,14 +1,13 @@
 nav {
   background: transparent;
-  justify-content: space-between;
 }
 
 .header-content {
   display: flex;
-  flex-direction: row;
-  width: 100vw;
+  width: 93vw;
   margin: 0;
   padding: 0;
+  justify-content: space-between;
 }
 
 .btn {
@@ -30,6 +29,22 @@ nav {
 }
 
 .header_img {
+  margin-top: 2%;
   height: 60%;
   margin-left: 10%;
+}
+
+.login_container {
+  margin-top: 1%;
+  height: 100%;
+  position: relative;
+}
+
+.name_box {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: aquamarine;
 }
