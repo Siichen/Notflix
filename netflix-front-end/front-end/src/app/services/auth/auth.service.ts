@@ -34,6 +34,7 @@ export class AuthService {
     !!localStorage.getItem('access_token')
   );
   isLoggedIn$ = this.isLoggedInSubject$.asObservable();
+
   loading$ = new BehaviorSubject<boolean>(false);
 
   // -------------------------------------------------------------

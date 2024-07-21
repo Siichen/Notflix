@@ -19,9 +19,9 @@ import { Router } from '@angular/router';
 export class TmbdService {
   // dependency injection
   constructor(
-    private readonly router: Router,
-    private readonly http: HttpClient,
-    @Inject(AUTHSERVER) public readonly authServerPath: string
+    private router: Router,
+    private http: HttpClient,
+    @Inject(AUTHSERVER) public authServerPath: string
   ) {}
 
   private readonly _baseUrl: string = `${this.authServerPath}`;
