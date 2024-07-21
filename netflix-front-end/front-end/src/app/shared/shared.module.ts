@@ -6,12 +6,12 @@ import { MainFooterComponent } from './components/main-footer/main-footer.compon
 import { ErrorComponent } from './components/error/error.component';
 import { AuthService } from '../services/auth/auth.service';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: ErrorComponent,
-  },
-];
+// const routes: Routes = [
+//   {
+//     path: '**',
+//     component: ErrorComponent,
+//   },
+// ];
 
 @NgModule({
   declarations: [MainHeaderComponent, MainFooterComponent, ErrorComponent],

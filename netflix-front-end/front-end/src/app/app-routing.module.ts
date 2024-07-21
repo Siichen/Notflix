@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginGuard } from './core/guards/login.guard';
+import { ErrorComponent } from './shared/components/error/error.component';
 
 // export const routes: Routes = [
 //   { path: '', component: HomeComponent }, // 这是一个Route
@@ -32,13 +33,14 @@ const routes: Routes = [
     path: 'movies',
     loadChildren: () =>
       import('./pages/movies/movies.module').then((m) => m.MoviesModule),
-    // canActivate: [LoginGuard],
+    canActivate: [LoginGuard],
   },
-  // {
-  //   path: '**',
-  //   loadChildren: () =>
-  //     import('./shared/shared.module').then((m) => m.SharedModule),
-  // },
+  {
+    path: '**',
+    component: ErrorComponent,
+    // loadChildren: () =>
+    //   import('./shared/shared.module').then((m) => m.SharedModule),
+  },
 ];
 
 @NgModule({
