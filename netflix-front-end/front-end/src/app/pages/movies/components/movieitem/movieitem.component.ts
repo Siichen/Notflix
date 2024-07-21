@@ -19,8 +19,8 @@ export class MovieitemComponent {
       : summary;
   }
 
-  viewDetails(id: number): void {
-    console.log(`Navigating to movie details for ID: ${id}`);
-    this.router.navigate(['/movies/details', id]);
-  }
+  // viewDetails(id: number): void {
+  //   console.log(`Navigating to movie details for ID: ${id}`);
+  //   this.router.navigate(['/movies/details', id]);
+  // }
 }

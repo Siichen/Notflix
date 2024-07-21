@@ -10,7 +10,10 @@
         class="movie_card"
         *cdkVirtualFor="let movie of movies; templateCacheSize: 10"
       >
-        <app-movie-item [movie]="movie"></app-movie-item>
+        <app-movie-item
+          [movie]="movie"
+          (click)="viewDetails(movie.movieId)"
+        ></app-movie-item>
       </div>
     </div>
   </cdk-virtual-scroll-viewport>
