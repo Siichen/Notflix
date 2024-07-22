@@ -65,13 +65,13 @@ export class PageOneComponent {
         role,
       };
 
-      console.log('Form is valid, submitting:', registrationData);
+      // console.log('Form is valid, submitting:', registrationData);
       this.authService.signup(registrationData).subscribe(
         (response: any) => {
-          console.log('User registered successfully', response);
+          // console.log('User registered successfully', response);
           if (response.accessToken) {
             this.router.navigate(['register2'], { relativeTo: this.route });
-            console.log('Received accessToken:', response.accessToken);
+            // console.log('Received accessToken:', response.accessToken);
           } else {
             console.error('No accessToken received');
           }

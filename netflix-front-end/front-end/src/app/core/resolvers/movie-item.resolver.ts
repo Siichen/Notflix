@@ -26,9 +26,9 @@ export class MovieItemResolver implements Resolve<boolean> {
     this.auth.loading$.next(true);
 
     const movie_id = route.paramMap.get('id');
-    console.log('MovieItemResolver: movie_id is', movie_id);
+    // console.log('MovieItemResolver: movie_id is', movie_id);
     if (!movie_id) {
-      console.log('MovieItemResolver: movie_id is missing!');
+      // console.log('MovieItemResolver: movie_id is missing!');
       this.auth.loading$.next(false);
       return of(false);
     }
@@ -37,17 +37,17 @@ export class MovieItemResolver implements Resolve<boolean> {
     return this.tmbd.getDetails(parseInt(movie_id)).pipe(
       tap({
         next: (details) => {
-          console.log(
-            'MovieItemResolver: successfully fetched movie details',
-            details
-          );
+          // console.log(
+          //   'MovieItemResolver: successfully fetched movie details',
+          //   details
+          // );
           this.auth.loading$.next(false);
         },
         error: (error) => {
-          console.error(
-            'MovieItemResolver: error while fetching movie details',
-            error
-          );
+          // console.error(
+          //   'MovieItemResolver: error while fetching movie details',
+          //   error
+          // );
           this.auth.loading$.next(false);
         },
       })

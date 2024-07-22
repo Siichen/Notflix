@@ -53,13 +53,13 @@ export class MovielistComponent implements OnInit, OnDestroy {
 
   saveScrollPosition(): void {
     const scrollPosition = this.viewport.measureScrollOffset();
-    console.log(`Saving scroll position: ${scrollPosition}`);
+    // console.log(`Saving scroll position: ${scrollPosition}`);
     this.scrollService.saveScrollPosition([scrollPosition, 0]);
   }
 
   restoreScrollPosition(): void {
     const scrollPosition = this.scrollService.getScrollPosition()[0];
-    console.log(`Restoring scroll position: ${scrollPosition}`);
+    // console.log(`Restoring scroll position: ${scrollPosition}`);
     if (scrollPosition) {
       setTimeout(() => {
         this.viewport.scrollToOffset(scrollPosition);
@@ -73,7 +73,7 @@ export class MovielistComponent implements OnInit, OnDestroy {
   // }
   viewDetails(id: number): void {
     this.saveScrollPosition();
-    console.log(`Navigating to movie details for ID: ${id}`);
+    // console.log(`Navigating to movie details for ID: ${id}`);
     this.router.navigate(['/movies/details', id]);
   }
 

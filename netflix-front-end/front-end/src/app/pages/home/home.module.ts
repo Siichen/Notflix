@@ -12,11 +12,6 @@ const routes: Routes = [
   {
     path: '',
     component: HomeRowOneComponent,
-    // children: [
-    //   { path: '', component: HomeRowOneComponent }, // 你来把这个改一下我看一下
-    //   { path: 'row-two', component: HomeRowTwoComponent },
-    //   { path: 'row-three', component: HomeRowThreeComponent },
-    // ],
   },
 ];
 

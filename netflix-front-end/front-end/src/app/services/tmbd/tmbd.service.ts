@@ -28,7 +28,7 @@ export class TmbdService {
   private readonly imageURL: string = 'https://image.tmdb.org/t/p/w500';
 
   // -------------------------------------------------------------
-  // 1. get movie item
+  // 1. movie item
   getMovies(page: number): Observable<Card[]> {
     return this.http
       .get<ResData>(`${this._baseUrl}/discover/movie?page=${page}`)
@@ -47,7 +47,7 @@ export class TmbdService {
           }))
         ),
         tap((cards: Card[]) => {
-          console.log('Transformed Cards:', cards);
+          // console.log('Transformed Cards:', cards);
         })
       );
   }
@@ -75,7 +75,7 @@ export class TmbdService {
         })
       ),
       tap((card: DetailsCard) => {
-        console.log('Transformed Card:', card);
+        // console.log('Transformed Card:', card);
       })
     );
   }

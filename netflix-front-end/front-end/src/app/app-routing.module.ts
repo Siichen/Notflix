@@ -12,6 +12,9 @@ import { ErrorComponent } from './shared/components/error/error.component';
 //   { path: 'movie/:id', component: MoviedetailsComponent },
 //   { path: '**', component: ErrorComponent },
 // ];
+
+// ----------------------------------------------------------------------
+// restructure to lazy loading
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {

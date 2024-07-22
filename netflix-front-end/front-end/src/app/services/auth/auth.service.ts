@@ -41,12 +41,12 @@ export class AuthService {
   // auth function
   // 1. signin
   login(userinfo: AppUser): Observable<any> {
-    console.log('Attempting login with userinfo:', userinfo);
+    // console.log('Login userinfo:', userinfo);
     return this.http
       .post<loginDto>(`${this._baseUrl}/auth/signin`, userinfo)
       .pipe(
         map((data) => {
-          console.log('Received data from server:', data);
+          // console.log('Response from server:', data);
           if (data.accessToken) {
             // store in local storage
             localStorage.setItem('access_token', data.accessToken);
@@ -54,7 +54,7 @@ export class AuthService {
             localStorage.setItem('username', userinfo.email);
             // pass it to the user
             this.users$.next(data);
-            console.log('Updated users$ with data:', data);
+            // console.log('Updated users$ with data:', data);
             // get login status
             this.isLoggedInSubject$.next(true);
           }

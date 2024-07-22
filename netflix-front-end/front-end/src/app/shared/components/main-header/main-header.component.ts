@@ -13,7 +13,7 @@ export class MainHeaderComponent implements OnInit {
   username$!: Observable<string | null>;
   // isLogin!: boolean;
   // username: string | null = null;
-  // private sbp!: Subscription = new s;
+  // private sbp!: Subscription = new Subscription;
   // private auth = inject(AuthService);
 
   constructor(private auth: AuthService) {}
@@ -28,6 +28,7 @@ export class MainHeaderComponent implements OnInit {
     this.auth.logout();
   }
 
+  // use async pipe instead of life hook
   // ngOnDestroy(): void {
   //   this.sbp.unsubscribe();
   // }

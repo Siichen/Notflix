@@ -20,17 +20,6 @@ import { SharedModule } from '../../shared/shared.module';
 import { MovieItemResolver } from '../../core/resolvers/movie-item.resolver';
 import { AuthService } from '../../services/auth/auth.service';
 
-// const routes: Routes = [
-//   {
-//     path: '',
-//     component: MoviesComponent,
-//     children: [
-//       { path: '', component: MovielistComponent },
-//       { path: 'details/:id', component: MoviedetailsComponent },
-//     ],
-//   },
-// ];
-
 const routes: Routes = [
   {
     path: '',
@@ -74,3 +63,14 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class MoviesModule {}
+
+// const routes: Routes = [
+//   {
+//     path: '',
+//     component: MoviesComponent,
+//     children: [
+//       { path: '', component: MovielistComponent },
+//       { path: 'details/:id', component: MoviedetailsComponent },
+//     ],
+//   },
+// ];

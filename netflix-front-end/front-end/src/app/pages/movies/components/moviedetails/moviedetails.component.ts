@@ -26,18 +26,16 @@ export class MoviedetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const movieId = this.route.snapshot.paramMap.get('id');
-    console.log(`Movie ID from route: ${movieId}`);
+    // console.log(`Movie ID from route: ${movieId}`);
     if (movieId) {
-      this.sbp = this.tmbdService
-        .getDetails(Number(movieId))
-        .subscribe((details: any) => {
-          this.movie = details;
-        });
+      this.sbp.add(
+        this.tmbdService
+          .getDetails(Number(movieId))
+          .subscribe((details: any) => {
+            this.movie = details;
+          })
+      );
     }
-  }
-
-  ngOnDestroy(): void {
-    this.sbp.unsubscribe();
   }
 
   getBackground(): string {
@@ -48,13 +46,19 @@ export class MoviedetailsComponent implements OnInit, OnDestroy {
   }
 
   openDialog(): void {
-    this.tmbdService.getVideos(this.movie.movieId).subscribe((data: any) => {
-      const videoKeys = data.results.map((result: any) => result.key);
-      if (videoKeys) {
-        this.dialog.open(MoviedialogComponent, {
-          data: { videoKeys: videoKeys },
-        });
-      }
-    });
+    this.sbp.add(
+      this.tmbdService.getVideos(this.movie.movieId).subscribe((data: any) => {
+        const videoKeys = data.results.map((result: any) => result.key);
+        if (videoKeys) {
+          this.dialog.open(MoviedialogComponent, {
+            data: { videoKeys: videoKeys },
+          });
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.sbp.unsubscribe();
   }
 }
