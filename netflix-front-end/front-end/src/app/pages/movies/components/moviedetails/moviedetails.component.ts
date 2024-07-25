@@ -25,18 +25,32 @@ export class MoviedetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const movieId = this.route.snapshot.paramMap.get('id');
-    // console.log(`Movie ID from route: ${movieId}`);
-    if (movieId) {
-      this.sbp.add(
-        this.tmbdService
-          .getDetails(Number(movieId))
-          .subscribe((details: any) => {
-            this.movie = details;
-          })
-      );
-    }
+    this.sbp.add(
+      this.route.paramMap.subscribe((params) => {
+        const movieId = params.get('id');
+        if (movieId) {
+          this.tmbdService
+            .getDetails(Number(movieId))
+            .subscribe((details: any) => {
+              this.movie = details;
+            });
+        }
+      })
+    );
   }
+
+  //   const movieId = this.route.snapshot.paramMap.get('id');
+  //   console.log(`Movie ID from route: ${movieId}`);
+  //   if (movieId) {
+  //     this.sbp.add(
+  //       this.tmbdService
+  //         .getDetails(Number(movieId))
+  //         .subscribe((details: any) => {
+  //           this.movie = details;
+  //         })
+  //     );
+  //   }
+  // }
 
   getBackground(): string {
     if (this.movie && this.movie.movieBackDrop) {

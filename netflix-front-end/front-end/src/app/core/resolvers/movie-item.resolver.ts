@@ -1,7 +1,6 @@
 import {
   ActivatedRouteSnapshot,
   Resolve,
-  ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
@@ -17,40 +16,17 @@ import { catchError, Observable, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class MovieItemResolver implements Resolve<boolean> {
-  constructor(private tmbd: TmbdService, private auth: AuthService) {}
+  constructor(private tmbd: TmbdService) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
-    this.auth.loading$.next(true);
-
     const movie_id = route.paramMap.get('id');
-    // console.log('MovieItemResolver: movie_id is', movie_id);
     if (!movie_id) {
-      // console.log('MovieItemResolver: movie_id is missing!');
-      this.auth.loading$.next(false);
-      return of(false);
+      return of(null);
     }
 
-    console.log('MovieItemResolver works.');
-    return this.tmbd.getDetails(parseInt(movie_id)).pipe(
-      tap({
-        next: (details) => {
-          // console.log(
-          //   'MovieItemResolver: successfully fetched movie details',
-          //   details
-          // );
-          this.auth.loading$.next(false);
-        },
-        error: (error) => {
-          // console.error(
-          //   'MovieItemResolver: error while fetching movie details',
-          //   error
-          // );
-          this.auth.loading$.next(false);
-        },
-      })
-    );
+    return this.tmbd.getDetails(parseInt(movie_id));
   }
 }

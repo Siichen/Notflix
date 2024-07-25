@@ -35,7 +35,7 @@ export class AuthService {
   );
   isLoggedIn$ = this.isLoggedInSubject$.asObservable();
 
-  loading$ = new BehaviorSubject<boolean>(false);
+  // loading$ = new BehaviorSubject<boolean>(false);
 
   // -------------------------------------------------------------
   // auth function
