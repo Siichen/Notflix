@@ -27,6 +27,6 @@ export class MovieItemResolver implements Resolve<boolean> {
       return of(null);
     }
 
-    return this.tmbd.getDetails(parseInt(movie_id));
+    return this.tmbd.getDetails(parseInt(movie_id)); // id as string in router, all data in url is string
   }
 }
