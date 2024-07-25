@@ -21,7 +21,7 @@ export class MoviedetailsComponent implements OnInit, OnDestroy {
     private tmbdService: TmbdService,
     public dialog: MatDialog
   ) {
-    this.movie = this.route.snapshot.data['movie'];
+    this.movie = this.route.snapshot.data['movie']; // get from router
   }
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class MoviedetailsComponent implements OnInit, OnDestroy {
           this.tmbdService
             .getDetails(Number(movieId))
             .subscribe((details: any) => {
-              this.movie = details;
+              this.movie = details; // get from tmdb service/url
             });
         }
       })
