@@ -74,8 +74,8 @@ export class MovielistComponent implements OnInit, OnDestroy {
   viewDetails(id: number): void {
     this.saveScrollPosition();
     // console.log(`Navigating to movie details for ID: ${id}`);
-    // this.router.navigate(['/movies/details', id]);
-    this.router.navigate(['details', id]);
+    this.router.navigate(['/movies/details', id]); // with independent
+    // this.router.navigate(['details', id]);  // with children
   }
 
   ngOnDestroy(): void {
