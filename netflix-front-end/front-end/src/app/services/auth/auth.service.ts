@@ -13,6 +13,7 @@ import { UserRegister } from '../../interfaces/User/user-signup.interface';
   providedIn: 'root',
 })
 export class AuthService {
+  // -------------------------------------------------------------
   // dependency injection
   constructor(
     private router: Router,
@@ -21,20 +22,18 @@ export class AuthService {
     @Inject(AUTHSERVER) private readonly _baseUrl: string
   ) {}
 
+  // -------------------------------------------------------------
   // data stream
   private users$ = new BehaviorSubject<loginDto | null>(null);
   user$ = this.users$.asObservable();
-
   private usernamesubject$ = new BehaviorSubject<string | null>(
     localStorage.getItem('username')
   );
   username$ = this.usernamesubject$.asObservable();
-
   private isLoggedInSubject$ = new BehaviorSubject<boolean>(
     !!localStorage.getItem('access_token')
   );
   isLoggedIn$ = this.isLoggedInSubject$.asObservable();
-
   // loading$ = new BehaviorSubject<boolean>(false);
 
   // -------------------------------------------------------------
@@ -62,6 +61,7 @@ export class AuthService {
         })
       );
   }
+
   // -------------------------------------------------------------
   // 2. signup
   signup(userInfo: UserRegister): Observable<any> {
@@ -83,6 +83,7 @@ export class AuthService {
         })
       );
   }
+
   // -------------------------------------------------------------
   // 3. signout
   logout() {
